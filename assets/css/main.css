@@ -3956,7 +3956,15 @@ input, select, textarea {
   font-size: 1.1em;
   letter-spacing: 0.02em;
   opacity: 0.95;
+}/* Slogan com o mesmo estilo do texto do header (lado esquerdo) */
+.hero-slogan.header-tagline{
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  font-size: 0.75em;
+  font-weight: 600;
+  line-height: 1.7;
 }
+
 .footer-brand{
   margin-top: 1.5em;
   display: flex;
