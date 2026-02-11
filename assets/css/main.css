@@ -3980,4 +3980,49 @@ input, select, textarea {
 @media screen and (max-width: 736px){
   .hero-slogan{ font-size: 1em; }
   .footer-logo{ width: 80%; max-width: 240px; }
+}/* Header alinhado (logo + Menu na mesma altura) */
+#header.alt{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
+
+/* Slogan: encaixar logo abaixo do header, sem bagunçar o layout */
+.hero-slogan{
+  margin: 0;
+  padding: 0.85em 2.25em; /* mesma “margem” do tema */
+}
+
+#header + .hero-slogan{
+  position: absolute;
+  top: 3.25em;           /* ajusta a altura: teste 3.0em a 3.6em */
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  pointer-events: none;  /* não atrapalha clique no menu */
+}
+
+/* Estilo “tagline” (igual ao topo esquerdo) */
+#header + .hero-slogan.header-tagline{
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  font-size: 0.75em;
+  font-weight: 600;
+  line-height: 1.7;
+  opacity: 0.9;
+  text-align: right;     /* se quiser do lado direito */
+}
+
+/* Mobile: joga para o centro e reduz */
+@media screen and (max-width: 736px){
+  #header + .hero-slogan{
+    top: 3.6em;
+    padding: 0.75em 1.25em;
+  }
+  #header + .hero-slogan.header-tagline{
+    text-align: center;
+    font-size: 0.68em;
+    letter-spacing: 0.18em;
+  }
+}
+
