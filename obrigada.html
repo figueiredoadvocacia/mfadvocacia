@@ -4,18 +4,74 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Recebido | MF Advocacia</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #0e0e15;
+      color: #fff;
+      text-align: center;
+      padding: 60px 20px;
+    }
+
+    .card {
+      max-width: 500px;
+      margin: auto;
+      background: #1a1a28;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+
+    h1 {
+      color: #4CAF50;
+      margin-bottom: 20px;
+    }
+
+    p {
+      margin: 15px 0;
+      line-height: 1.5;
+    }
+
+    a.button {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 12px 24px;
+      background: #d4af37;
+      color: #000;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: bold;
+    }
+
+    a.button.secondary {
+      background: transparent;
+      border: 1px solid #d4af37;
+      color: #d4af37;
+    }
+  </style>
 </head>
 <body>
-  <h1>Recebido ✅</h1>
-  <p>Suas informações foram enviadas. Em instantes retornaremos.</p>
 
-  <p>
-    Se preferir, fale agora no WhatsApp:
-    <a href="https://wa.me/5592993972750?text=Oi!%20Enviei%20o%20formul%C3%A1rio%20do%20site%20e%20quero%20agendar.">
-      Clique aqui
+  <div class="card">
+    <h1>✔ Recebido</h1>
+
+    <p>
+      Suas informações foram enviadas com sucesso.
+      Nossa equipe analisará e retornará em instantes.
+    </p>
+
+    <a class="button"
+       href="https://wa.me/5592993972750?text=Enviei%20o%20formul%C3%A1rio%20do%20site%20e%20quero%20agendar.">
+       Falar no WhatsApp agora
     </a>
-  </p>
 
-  <p><a href="index.html">Voltar ao site</a></p>
+    <br><br>
+
+    <a class="button secondary" href="index.html">
+      Voltar ao site
+    </a>
+  </div>
+
 </body>
 </html>
