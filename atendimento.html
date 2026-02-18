@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Atendimento | MF Advocacia</title>
+</head>
+<body>
+  <h1>Atendimento e Agendamento</h1>
+  <p>Preencha para triagem rápida.</p>
+
+  <form id="leadForm">
+    <input name="nome" placeholder="Seu nome" required />
+    <input name="whatsapp" placeholder="WhatsApp com DDD" required />
+    <input name="instagram" placeholder="@instagram (se tiver)" />
+    <select name="assunto" required>
+      <option value="">Selecione o assunto</option>
+      <option value="familia">Direito de Família</option>
+      <option value="consumo">Direito do Consumidor</option>
+      <option value="bloqueio_bancario">Bloqueio bancário / descontos</option>
+      <option value="civil_digital">Civil Digital</option>
+      <option value="outro">Outro</option>
+    </select>
+    <textarea name="mensagem" placeholder="Explique seu caso em poucas linhas" required></textarea>
+
+    <button type="submit">Enviar</button>
+  </form>
+
+  <div id="status" style="margin-top:12px;"></div>
+
+  <script>
+    const WEBHOOK_URL = "https://n8n.mfadvocacia.api.br/webhook/manychat";
+
+    document.getElementById("leadForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const form = e.target;
+
+      const payload = {
+        canal: "site",
+        nome: form.nome.value.trim(),
+        whatsapp: form.whatsapp.value.trim(),
+        instagram: form.instagram.value.trim(),
+        assunto: form.assunto.value,
+        mensagem: form.mensagem.value.trim(),
+        origem: window.location.href,
+        ts: new Date().toISOString()
+      };
+
+      const status = document.getElementById("status");
+      status.innerText = "Enviando...";
+
+      try {
+        const res = await fetch(WEBHOOK_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+
+        if (!res.ok) throw new Error("HTTP " + res.status);
+
+        status.innerText = "Recebido! Redirecionando...";
+        window.location.href = "obrigada.html";
+      } catch (err) {
+        console.error(err);
+        status.innerText = "Falha ao enviar. Tente novamente em alguns minutos.";
+      }
+    });
+  </script>
+</body>
+</html>
