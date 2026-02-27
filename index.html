@@ -178,7 +178,8 @@
 				<div class="inner">
 
 					<section>
-						<form method="post" action="http://167.234.227.216:5678/webhook/manychat">
+						<!-- ✅ CORRIGIDO: SEM Mixed Content. Agora usa HTTPS no seu domínio -->
+						<form method="post" action="https://n8n.mfadvocacia.api.br/webhook/manychat">
 							<!-- Lead: identifica de qual área veio -->
 							<input type="hidden" id="area_interesse" name="area_interesse" value="" />
 
@@ -275,6 +276,7 @@
 				if (el) el.value = area || '';
 			}
 		</script>
+
 	<!-- SENNE Widget (site -> n8n webhook) -->
 <style>
   :root{
@@ -285,7 +287,7 @@
     --senne-text: #111827;
     --senne-border: rgba(17,24,39,.12);
     --senne-shadow: 0 18px 45px rgba(0,0,0,.25);
-    --senne-accent: #2d6cdf; /* azul elegante */
+    --senne-accent: #2d6cdf;
   }
 
   #senne-btn {
@@ -372,8 +374,6 @@
     border-top:1px solid rgba(17,24,39,.10);
   }
 
-  /* MUITO IMPORTANTE: o tema do site pode estar forçando cor branca em inputs.
-     Aqui a gente fixa cor e background do input do SENNE. */
   #senne-input {
     flex:1;
     padding: 11px 12px;
@@ -407,7 +407,6 @@
     background:#fff;
   }
 
-  /* Mobile */
   @media (max-width: 420px) {
     #senne-box { width: calc(100vw - 36px); }
     #senne-log { height: 52vh; }
@@ -434,10 +433,9 @@
 
 <script>
 (() => {
-  // ✅ Use SEMPRE a URL de PRODUÇÃO do Webhook do n8n
+  // ✅ URL de PRODUÇÃO do Webhook do n8n (HTTPS)
   const WEBHOOK_URL = "https://n8n.mfadvocacia.api.br/webhook/senne-entrada";
 
-  // sessão simples persistida no navegador
   const sessionKey = "senne_session_id";
   let sessionId = localStorage.getItem(sessionKey);
   if (!sessionId) {
@@ -461,7 +459,7 @@
     row.appendChild(bubble);
     log.appendChild(row);
     log.scrollTop = log.scrollHeight;
-    return bubble; // retorna o bubble pra atualizar depois (digitando...)
+    return bubble;
   }
 
   function toggle(open) {
@@ -483,11 +481,9 @@
     addMsg(text, "me");
     input.value = "";
 
-    // "Digitando..." (vamos substituir depois)
     const typingBubble = addMsg("Digitando…", "bot");
 
     try {
-      // ✅ Ajuste CRÍTICO: seu n8n espera "usuario_id" (senão vira 'anon' e mistura todos os contatos)
       const payload = {
         canal: "site",
         usuario_id: sessionId,
@@ -504,7 +500,6 @@
         body: JSON.stringify(payload)
       });
 
-      // Se o servidor respondeu mas com erro (ex: 500/401), cai aqui
       if (!res.ok) {
         typingBubble.textContent = "Ops! O atendimento respondeu com erro. Tente novamente.";
         return;
