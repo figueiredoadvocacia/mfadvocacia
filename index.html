@@ -275,60 +275,150 @@
 				if (el) el.value = area || '';
 			}
 		</script>
-		<!-- SENNE Widget (site -> n8n webhook) -->
+	<!-- SENNE Widget (site -> n8n webhook) -->
 <style>
+  :root{
+    --senne-bg: #0f1115;
+    --senne-bg-2: #12151c;
+    --senne-card: #ffffff;
+    --senne-muted: rgba(255,255,255,.72);
+    --senne-text: #111827;
+    --senne-border: rgba(17,24,39,.12);
+    --senne-shadow: 0 18px 45px rgba(0,0,0,.25);
+    --senne-accent: #2d6cdf; /* azul elegante */
+  }
+
   #senne-btn {
     position: fixed; right: 18px; bottom: 18px; z-index: 9999;
     border: 0; border-radius: 999px; padding: 12px 16px;
-    background: #111; color: #fff; cursor: pointer;
+    background: var(--senne-bg);
+    color: #fff;
+    cursor: pointer;
     box-shadow: 0 10px 25px rgba(0,0,0,.18);
-    font: 600 14px/1.2 system-ui, -apple-system, Segoe UI, Roboto, Arial;
+    font: 700 14px/1.2 system-ui, -apple-system, Segoe UI, Roboto, Arial;
+    letter-spacing: .2px;
   }
+  #senne-btn:hover { filter: brightness(1.06); }
+
   #senne-box {
     position: fixed; right: 18px; bottom: 70px; z-index: 9999;
-    width: 340px; max-width: calc(100vw - 36px);
-    border-radius: 16px; background: #fff;
-    box-shadow: 0 18px 45px rgba(0,0,0,.22);
-    overflow: hidden; display: none;
-    border: 1px solid rgba(0,0,0,.08);
+    width: 360px; max-width: calc(100vw - 36px);
+    border-radius: 18px;
+    background: var(--senne-card);
+    box-shadow: var(--senne-shadow);
+    overflow: hidden;
+    display: none;
+    border: 1px solid rgba(255,255,255,.06);
     font: 14px system-ui, -apple-system, Segoe UI, Roboto, Arial;
   }
+
   #senne-header {
-    padding: 12px 14px; background: #111; color: #fff;
+    padding: 12px 14px;
+    background: linear-gradient(180deg, var(--senne-bg), var(--senne-bg-2));
+    color: #fff;
     display:flex; align-items:center; justify-content:space-between;
+    border-bottom: 1px solid rgba(255,255,255,.08);
   }
-  #senne-header b { font-weight: 700; }
-  #senne-close { background: transparent; border: 0; color:#fff; cursor:pointer; font-size: 18px; }
-  #senne-log { padding: 12px; height: 320px; overflow:auto; background:#fafafa; }
-  .senne-msg { margin: 8px 0; display:flex; }
+  #senne-header b { font-weight: 800; letter-spacing: .2px; }
+  #senne-header .sub { opacity:.85; font-weight: 500; }
+
+  #senne-close {
+    width: 36px; height: 36px;
+    border-radius: 12px;
+    background: rgba(255,255,255,.08);
+    border: 1px solid rgba(255,255,255,.12);
+    color:#fff; cursor:pointer; font-size: 18px;
+    display:flex; align-items:center; justify-content:center;
+  }
+  #senne-close:hover { background: rgba(255,255,255,.14); }
+
+  #senne-log {
+    padding: 12px;
+    height: 330px;
+    overflow:auto;
+    background: #f6f7fb;
+  }
+
+  .senne-msg { margin: 10px 0; display:flex; gap: 10px; }
   .senne-bubble {
-    padding: 10px 12px; border-radius: 14px; max-width: 82%;
-    box-shadow: 0 6px 16px rgba(0,0,0,.06);
+    padding: 10px 12px;
+    border-radius: 16px;
+    max-width: 84%;
     white-space: pre-wrap; word-break: break-word;
+    line-height: 1.35;
   }
+
   .me { justify-content: flex-end; }
-  .me .senne-bubble { background:#111; color:#fff; border-bottom-right-radius: 6px; }
+  .me .senne-bubble {
+    background: linear-gradient(180deg, #141826, #0f1115);
+    color:#fff;
+    border-bottom-right-radius: 8px;
+    box-shadow: 0 10px 22px rgba(0,0,0,.12);
+  }
+
   .bot { justify-content: flex-start; }
-  .bot .senne-bubble { background:#fff; color:#111; border:1px solid rgba(0,0,0,.08); border-bottom-left-radius: 6px; }
-  #senne-form { display:flex; gap:8px; padding: 10px; background:#fff; border-top:1px solid rgba(0,0,0,.08); }
+  .bot .senne-bubble {
+    background:#fff;
+    color: var(--senne-text);
+    border: 1px solid var(--senne-border);
+    border-bottom-left-radius: 8px;
+    box-shadow: 0 10px 22px rgba(0,0,0,.06);
+  }
+
+  #senne-form {
+    display:flex; gap:10px;
+    padding: 10px;
+    background:#fff;
+    border-top:1px solid rgba(17,24,39,.10);
+  }
+
+  /* MUITO IMPORTANTE: o tema do site pode estar forçando cor branca em inputs.
+     Aqui a gente fixa cor e background do input do SENNE. */
   #senne-input {
-    flex:1; padding: 10px 12px; border-radius: 12px;
-    border: 1px solid rgba(0,0,0,.18);
+    flex:1;
+    padding: 11px 12px;
+    border-radius: 12px;
+    border: 1px solid rgba(17,24,39,.18);
     outline: none;
+    background: #fff !important;
+    color: #111827 !important;
+    font-size: 14px;
   }
+  #senne-input::placeholder {
+    color: rgba(17,24,39,.55) !important;
+  }
+
   #senne-send {
-    padding: 10px 12px; border-radius: 12px;
-    border: 0; background:#111; color:#fff; cursor:pointer;
-    font-weight: 700;
+    padding: 11px 14px;
+    border-radius: 12px;
+    border: 0;
+    background: var(--senne-accent);
+    color:#fff;
+    cursor:pointer;
+    font-weight: 800;
+    letter-spacing: .2px;
   }
-  #senne-hint { padding: 0 12px 10px; color:#666; font-size: 12px; background:#fff; }
+  #senne-send:hover { filter: brightness(1.05); }
+
+  #senne-hint {
+    padding: 0 12px 12px;
+    color: rgba(17,24,39,.65);
+    font-size: 12px;
+    background:#fff;
+  }
+
+  /* Mobile */
+  @media (max-width: 420px) {
+    #senne-box { width: calc(100vw - 36px); }
+    #senne-log { height: 52vh; }
+  }
 </style>
 
 <button id="senne-btn" aria-label="Abrir chat SENNE">SENNE</button>
 
 <div id="senne-box" role="dialog" aria-label="Chat SENNE">
   <div id="senne-header">
-    <div><b>SENNE</b> <span style="opacity:.85;">• atendimento</span></div>
+    <div><b>SENNE</b> <span class="sub">• atendimento</span></div>
     <button id="senne-close" aria-label="Fechar">×</button>
   </div>
 
@@ -344,6 +434,7 @@
 
 <script>
 (() => {
+  // ✅ Use SEMPRE a URL de PRODUÇÃO do Webhook do n8n
   const WEBHOOK_URL = "https://n8n.mfadvocacia.api.br/webhook/senne-entrada";
 
   // sessão simples persistida no navegador
@@ -370,6 +461,7 @@
     row.appendChild(bubble);
     log.appendChild(row);
     log.scrollTop = log.scrollHeight;
+    return bubble; // retorna o bubble pra atualizar depois (digitando...)
   }
 
   function toggle(open) {
@@ -391,20 +483,19 @@
     addMsg(text, "me");
     input.value = "";
 
-    // placeholder enquanto responde
-    const typingId = "typing_" + Date.now();
-    addMsg("Digitando...", "bot");
-    const last = log.lastElementChild;
+    // "Digitando..." (vamos substituir depois)
+    const typingBubble = addMsg("Digitando…", "bot");
 
     try {
+      // ✅ Ajuste CRÍTICO: seu n8n espera "usuario_id" (senão vira 'anon' e mistura todos os contatos)
       const payload = {
         canal: "site",
-        session_id: sessionId,
+        usuario_id: sessionId,
         nome: "Visitante",
         mensagem: text,
-        pagina: location.pathname || "/",
-        url: location.href,
-        user_agent: navigator.userAgent
+        tipo: "texto",
+        origem: location.href,
+        ts: new Date().toISOString()
       };
 
       const res = await fetch(WEBHOOK_URL, {
@@ -413,17 +504,22 @@
         body: JSON.stringify(payload)
       });
 
+      // Se o servidor respondeu mas com erro (ex: 500/401), cai aqui
+      if (!res.ok) {
+        typingBubble.textContent = "Ops! O atendimento respondeu com erro. Tente novamente.";
+        return;
+      }
+
       const data = await res.json().catch(() => ({}));
+
       const reply =
-        data.resposta || data.reply || data.output || data.message ||
+        data.reply || data.resposta || data.output || data.message ||
         "Não consegui processar agora. Tente novamente em instantes.";
 
-      // substitui "Digitando..."
-      last.querySelector(".senne-bubble").textContent = reply;
+      typingBubble.textContent = reply;
 
     } catch (err) {
-      last.querySelector(".senne-bubble").textContent =
-        "Ops! Falha de conexão com o atendimento. Tente novamente.";
+      typingBubble.textContent = "Ops! Falha de conexão com o atendimento. Tente novamente.";
     }
   });
 })();
