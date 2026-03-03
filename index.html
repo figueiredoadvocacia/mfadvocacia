@@ -9,8 +9,13 @@
     <title>MF Advocacia | Segurança jurídica</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <meta name="description" content="MF Advocacia: orientação jurídica estratégica em Direito Civil Digital, Família, Consumidor e gestão de patrimônio, com atendimento online e presencial em Manaus." />
+    <meta property="og:title" content="MF Advocacia | Segurança jurídica" />
+    <meta property="og:description" content="Clareza, estratégia e proteção legal para pessoas, famílias e negócios." />
+    <meta property="og:image" content="images/logo-mf-guara.png" />
     <link rel="stylesheet" href="assets/css/main.css" />
     <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+    <style>html { scroll-behavior: smooth; }</style>
   </head>
 
   <body class="is-preload">
@@ -35,15 +40,15 @@
       <!-- Menu -->
       <nav id="menu">
         <ul class="links">
-          <li><a href="index.html">Início</a></li>
-          <li><a href="#sobre">Sobre</a></li>
-          <li><a href="#atuacao">Áreas de atuação</a></li>
-          <li><a href="#conteudos">Conteúdos</a></li>
-          <li><a href="#contact">Contato</a></li>
+          <li><a href="#banner" class="scrolly">Início</a></li>
+          <li><a href="#sobre" class="scrolly">Sobre</a></li>
+          <li><a href="#areas" class="scrolly">Áreas de atuação</a></li>
+          <li><a href="#conteudos" class="scrolly">Conteúdos</a></li>
+          <li><a href="#contato" class="scrolly">Contato</a></li>
         </ul>
 
         <ul class="actions stacked">
-          <li><a href="#contact" class="button primary fit">Agendar análise estratégica</a></li>
+          <li><a href="atendimento.html" class="button primary fit">Agendar análise estratégica</a></li>
           <li><a href="https://wa.me/5592993972750" class="button fit" target="_blank" rel="noopener">WhatsApp</a></li>
         </ul>
       </nav>
@@ -62,7 +67,7 @@
             </p>
 
             <ul class="actions">
-              <li><a href="#contact" class="button next scrolly" onclick="setArea('analise')">Entre em contato e agende uma análise estratégica</a></li>
+              <li><a href="atendimento.html" class="button next">Entre em contato e agende uma análise estratégica</a></li>
             </ul>
 
             <ul class="icons">
@@ -80,14 +85,14 @@
       <div id="main">
 
         <!-- Áreas -->
-        <section id="atuacao" class="tiles">
+        <section id="areas" class="tiles">
 
           <article>
             <span class="image">
               <img src="images/mayana_oficial_site_otimizada.jpg" alt="MF Advocacia - Direito Civil Digital" />
             </span>
             <header class="major">
-              <h3><a href="#contact" class="link" onclick="setArea('civil_digital')">Direito Civil Digital</a></h3>
+              <h3><a href="#contato" class="link" onclick="setArea('civil_digital')">Direito Civil Digital</a></h3>
               <p>Proteção em fraudes, golpes, contratos digitais e dados.</p>
             </header>
           </article>
@@ -97,7 +102,7 @@
               <img src="images/pic02.jpg" alt="MF Advocacia - Direito de Família" />
             </span>
             <header class="major">
-              <h3><a href="#contact" class="link" onclick="setArea('familia')">Direito de Família</a></h3>
+              <h3><a href="#contato" class="link" onclick="setArea('familia')">Direito de Família</a></h3>
               <p>Estratégia e cuidado em decisões sobre pessoas e patrimônio.</p>
             </header>
           </article>
@@ -107,7 +112,7 @@
               <img src="images/pic03.jpg" alt="MF Advocacia - Direito do Consumidor" />
             </span>
             <header class="major">
-              <h3><a href="#contact" class="link" onclick="setArea('consumidor')">Direito do Consumidor</a></h3>
+              <h3><a href="#contato" class="link" onclick="setArea('consumidor')">Direito do Consumidor</a></h3>
               <p>Revisão de contratos, cobranças indevidas e abusos bancários.</p>
             </header>
           </article>
@@ -117,7 +122,7 @@
               <img src="images/pic04.jpg" alt="MF Advocacia - Patrimônio e Contratos" />
             </span>
             <header class="major">
-              <h3><a href="#contact" class="link" onclick="setArea('patrimonio_contratos')">Patrimônio e Contratos</a></h3>
+              <h3><a href="#contato" class="link" onclick="setArea('patrimonio_contratos')">Patrimônio e Contratos</a></h3>
               <p>Segurança jurídica para negócios, bens e transações.</p>
             </header>
           </article>
@@ -127,7 +132,7 @@
               <img src="images/regularizacao_documentos_banner_fullhd.jpg" alt="MF Advocacia - Regularizações e Registros" />
             </span>
             <header class="major">
-              <h3><a href="#contact" class="link" onclick="setArea('regularizacoes_registros')">Regularizações e Registros</a></h3>
+              <h3><a href="#contato" class="link" onclick="setArea('regularizacoes_registros')">Regularizações e Registros</a></h3>
               <p>Documentos, cartórios, obrigações e prevenção de risco.</p>
             </header>
           </article>
@@ -137,7 +142,7 @@
               <img src="images/pic06.jpg" alt="MF Advocacia - Conteúdos e Orientações" />
             </span>
             <header class="major">
-              <h3><a href="https://www.facebook.com/profile.php?id=61587447262139" class="link" target="_blank" rel="noopener">Conteúdos e Orientações</a></h3>
+              <h3><a href="#conteudos" class="link">Conteúdos e Orientações</a></h3>
               <p>Materiais claros para entender seus direitos e agir com segurança.</p>
             </header>
           </article>
@@ -158,12 +163,16 @@
             </p>
 
             <ul class="actions">
-              <li><a href="#contact" class="button next" onclick="setArea('analise')">Quero uma análise estratégica</a></li>
+              <li><a href="atendimento.html" class="button next">Quero uma análise estratégica</a></li>
             </ul>
+          </div>
+        </section>
 
-            <hr />
-
-            <h3 id="conteudos">Network e parcerias</h3>
+        <section id="conteudos">
+          <div class="inner">
+            <header class="major">
+              <h2>Network e parcerias</h2>
+            </header>
             <p>
               Área reservada para <strong>network</strong>, <strong>parcerias</strong>, indicações e projetos.
             </p>
@@ -173,31 +182,22 @@
       </div>
 
       <!-- Contact -->
-      <section id="contact">
+      <section id="contato">
         <div class="inner">
 
           <section>
-            <!-- ✅ CORRIGIDO: formulário aponta para o MESMO webhook do SENNE (sem manychat) -->
-            <form method="post" action="https://n8n.mfadvocacia.api.br/webhook/senne-entrada">
-              <!-- Lead: identifica de qual área veio -->
+            <form id="network-form" novalidate>
               <input type="hidden" id="area_interesse" name="area_interesse" value="" />
-
-              <!-- Metadados úteis pro n8n (normalizar entrada) -->
-              <input type="hidden" name="canal" value="site" />
-              <input type="hidden" id="usuario_id_form" name="usuario_id" value="" />
-              <input type="hidden" name="tipo" value="form" />
-              <input type="hidden" id="origem_form" name="origem" value="" />
-              <input type="hidden" id="ts_form" name="ts" value="" />
 
               <div class="fields">
                 <div class="field half">
                   <label for="name">Nome</label>
-                  <input type="text" name="nome" id="name" placeholder="Seu nome" autocomplete="name" />
+                  <input type="text" name="nome" id="name" placeholder="Seu nome" autocomplete="name" required />
                 </div>
 
                 <div class="field half">
                   <label for="email">E-mail</label>
-                  <input type="email" name="email" id="email" placeholder="seuemail@exemplo.com" autocomplete="email" />
+                  <input type="email" name="email" id="email" placeholder="seuemail@exemplo.com" autocomplete="email" required />
                 </div>
 
                 <div class="field">
@@ -210,6 +210,8 @@
                 <li><input type="submit" value="Enviar mensagem" class="primary" /></li>
                 <li><input type="reset" value="Limpar" onclick="setArea('')" /></li>
               </ul>
+
+              <p id="network-feedback" style="margin-top:0.5rem;display:none;"></p>
             </form>
           </section>
 
@@ -274,30 +276,6 @@
     <script src="assets/js/breakpoints.min.js"></script>
     <script src="assets/js/util.js"></script>
     <script src="assets/js/main.js"></script>
-
-    <!-- Lead helper -->
-    <script>
-      function setArea(area) {
-        var el = document.getElementById('area_interesse');
-        if (el) el.value = area || '';
-      }
-
-      // Preenche metadados do form (usuario_id, origem, ts)
-      (function(){
-        const key = "senne_session_id";
-        let sid = localStorage.getItem(key);
-        if (!sid) {
-          sid = (crypto?.randomUUID?.() || ("sess_" + Math.random().toString(16).slice(2)));
-          localStorage.setItem(key, sid);
-        }
-        const u = document.getElementById("usuario_id_form");
-        const o = document.getElementById("origem_form");
-        const t = document.getElementById("ts_form");
-        if (u) u.value = sid;
-        if (o) o.value = location.href;
-        if (t) t.value = new Date().toISOString();
-      })();
-    </script>
 
     <!-- SENNE Widget (site -> n8n webhook) -->
     <style>
@@ -452,91 +430,7 @@
       <div id="senne-hint">Se preferir, você pode pedir o contato do WhatsApp aqui.</div>
     </div>
 
-    <script>
-      (() => {
-        const WEBHOOK_URL = "https://n8n.mfadvocacia.api.br/webhook/senne-entrada";
-
-        const sessionKey = "senne_session_id";
-        let sessionId = localStorage.getItem(sessionKey);
-        if (!sessionId) {
-          sessionId = (crypto?.randomUUID?.() || ("sess_" + Math.random().toString(16).slice(2)));
-          localStorage.setItem(sessionKey, sessionId);
-        }
-
-        const btn = document.getElementById("senne-btn");
-        const box = document.getElementById("senne-box");
-        const closeBtn = document.getElementById("senne-close");
-        const log = document.getElementById("senne-log");
-        const form = document.getElementById("senne-form");
-        const input = document.getElementById("senne-input");
-
-        function addMsg(text, who="bot") {
-          const row = document.createElement("div");
-          row.className = "senne-msg " + (who === "me" ? "me" : "bot");
-          const bubble = document.createElement("div");
-          bubble.className = "senne-bubble";
-          bubble.textContent = text;
-          row.appendChild(bubble);
-          log.appendChild(row);
-          log.scrollTop = log.scrollHeight;
-          return bubble;
-        }
-
-        function toggle(open) {
-          box.style.display = open ? "block" : "none";
-          if (open && log.childElementCount === 0) {
-            addMsg("Oi! Eu sou o SENNE. Me diga rapidamente o que você precisa 😊", "bot");
-          }
-          if (open) setTimeout(() => input.focus(), 50);
-        }
-
-        btn.addEventListener("click", () => toggle(true));
-        closeBtn.addEventListener("click", () => toggle(false));
-
-        form.addEventListener("submit", async (e) => {
-          e.preventDefault();
-          const text = input.value.trim();
-          if (!text) return;
-
-          addMsg(text, "me");
-          input.value = "";
-
-          const typingBubble = addMsg("Digitando…", "bot");
-
-          try {
-            const payload = {
-              canal: "site",
-              usuario_id: sessionId,
-              nome: "Visitante",
-              mensagem: text,
-              tipo: "texto",
-              origem: location.href,
-              ts: new Date().toISOString()
-            };
-
-            const res = await fetch(WEBHOOK_URL, {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify(payload)
-            });
-
-            if (!res.ok) {
-              typingBubble.textContent = "Ops! O atendimento respondeu com erro. Tente novamente.";
-              return;
-            }
-
-            const data = await res.json().catch(() => ({}));
-            const reply =
-              data.reply || data.resposta || data.output || data.message ||
-              "Não consegui processar agora. Tente novamente em instantes.";
-
-            typingBubble.textContent = reply;
-          } catch (err) {
-            typingBubble.textContent = "Ops! Falha de conexão com o atendimento. Tente novamente.";
-          }
-        });
-      })();
-    </script>
+    <script src="assets/js/site.js"></script>
     <!-- /SENNE Widget -->
 
   </body>
