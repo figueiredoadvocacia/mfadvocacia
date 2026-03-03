@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <meta name="description" content="Atuação estratégica em divórcio, guarda, pensão e partilha, com condução firme e técnica." />
     <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="assets/css/spacing.css" />
     <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
   </head>
   <body class="is-preload">
@@ -30,13 +31,13 @@
         </ul>
         <ul class="actions stacked">
           <li><a href="atendimento.html" class="button primary fit">Solicitar análise estratégica</a></li>
-          <li><a href="https://wa.me/SEU_NUMERO_AQUI" class="button fit" target="_blank" rel="noopener">WhatsApp</a></li>
+          <li><a href="https://wa.me/5592993972750" class="button fit" target="_blank" rel="noopener">WhatsApp</a></li>
         </ul>
       </nav>
 
       <div id="main" class="alt">
-        <section id="one">
-          <div class="inner">
+        <section id="one" class="section-pad">
+          <div class="inner stack-md">
             <header class="major">
               <h1>Decisões familiares exigem firmeza técnica e condução estratégica.</h1>
             </header>
@@ -73,7 +74,7 @@
 
             <ul class="actions stacked" style="max-width: 22rem;">
               <li><a href="atendimento.html" class="button primary fit">Solicitar análise estratégica</a></li>
-              <li><a href="https://wa.me/SEU_NUMERO_AQUI" class="button fit" target="_blank" rel="noopener">WhatsApp</a></li>
+              <li><a href="https://wa.me/5592993972750" class="button fit" target="_blank" rel="noopener">WhatsApp</a></li>
               <li><a href="index.html" class="button fit">Voltar ao início</a></li>
             </ul>
           </div>
@@ -91,6 +92,7 @@
             <li>&copy; MF Advocacia</li>
             <li>Design: <a href="https://html5up.net" target="_blank" rel="noopener">HTML5 UP</a></li>
           </ul>
+          <p class="discreet-links"><a href="privacidade.html">Privacidade</a> · <a href="termos.html">Termos</a></p>
           <p style="margin-top: 1rem;">WhatsApp: +55 92 99397-2750</p>
           <div class="footer-brand">
             <img src="images/logo_guara_transparente_rodape.png" alt="MF Mayana Figueiredo Advocacia" class="footer-logo" loading="lazy" />
@@ -110,11 +112,11 @@
       @media (max-width:420px){#senne-box{width:calc(100vw - 36px)}#senne-log{height:52vh}}
     </style>
 
-    <button id="senne-btn" aria-label="Abrir chat SENNE">SENNE</button>
-    <div id="senne-box" role="dialog" aria-label="Chat SENNE">
-      <div id="senne-header"><div><b>SENNE</b> <span class="sub">• atendimento</span></div><button id="senne-close" aria-label="Fechar">×</button></div>
-      <div id="senne-log"></div>
-      <form id="senne-form"><input id="senne-input" placeholder="Digite sua mensagem..." autocomplete="off" /><button id="senne-send" type="submit">Enviar</button></form>
+    <button id="senne-btn" data-senne-btn aria-label="Abrir chat SENNE">SENNE</button>
+    <div id="senne-box" data-senne-box role="dialog" aria-label="Chat SENNE">
+      <div id="senne-header"><div><b>SENNE</b> <span class="sub">• atendimento</span></div><button id="senne-close" data-senne-close aria-label="Fechar">×</button></div>
+      <div id="senne-log" data-senne-log></div>
+      <form id="senne-form" data-senne-form><input id="senne-input" data-senne-input placeholder="Digite sua mensagem..." autocomplete="off" /><button id="senne-send" type="submit">Enviar</button></form>
       <div id="senne-hint">Se preferir, você pode pedir o contato do WhatsApp aqui.</div>
     </div>
 
