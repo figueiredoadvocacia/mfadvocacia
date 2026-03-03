@@ -4026,3 +4026,46 @@ input, select, textarea {
   }
 }
 
+
+/* Hotfix: preserve shared utility component visuals moved out of spacing/components split */
+.form-privacy-note {
+  margin-top: var(--space-xs);
+  font-size: 0.9em;
+  opacity: 0.82;
+}
+
+.discreet-links {
+  margin-top: var(--space-sm);
+  font-size: 0.9em;
+  opacity: 0.85;
+}
+
+.discreet-links a { text-decoration: none; }
+.discreet-links a:hover { text-decoration: underline; }
+
+.content-card {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: var(--space-sm);
+}
+
+.consent-banner {
+  position: fixed;
+  left: var(--space-sm);
+  right: var(--space-sm);
+  bottom: var(--space-sm);
+  z-index: 10000;
+  background: rgba(15, 17, 21, 0.95);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 10px;
+  padding: var(--space-sm);
+}
+
+.consent-banner p {
+  margin: 0;
+  font-size: 0.95em;
+}
+
+.consent-banner .actions {
+  margin-top: var(--space-xs);
+}
