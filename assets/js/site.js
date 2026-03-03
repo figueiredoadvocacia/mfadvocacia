@@ -82,15 +82,20 @@
     });
   }
 
-  const btn = document.querySelector("[data-senne-btn]") || document.getElementById("senne-btn");
-  const box = document.querySelector("[data-senne-box]") || document.getElementById("senne-box");
-  const closeBtn = document.querySelector("[data-senne-close]") || document.getElementById("senne-close");
-  const log = document.querySelector("[data-senne-log]") || document.getElementById("senne-log");
-  const form = document.querySelector("[data-senne-form]") || document.getElementById("senne-form");
-  const input = document.querySelector("[data-senne-input]") || document.getElementById("senne-input");
+  const qs = (s) => document.querySelector(s);
+  const byId = (id) => document.getElementById(id);
 
-  if (btn && box && closeBtn && log && form && input) {
-    function addMsg(text, who) {
+  const btn = qs("[data-senne-btn]") || byId("senne-btn");
+  const box = qs("[data-senne-chat]") || qs("[data-senne-box]") || byId("senne-box");
+  const closeBtn = qs("[data-senne-close]") || byId("senne-close");
+  const log = qs("[data-senne-output]") || qs("[data-senne-log]") || byId("senne-log");
+  const form = qs("[data-senne-form]") || byId("senne-form");
+  const input = qs("[data-senne-input]") || byId("senne-input");
+  const send = qs("[data-senne-send]") || byId("senne-send");
+
+  if (!(btn && box && closeBtn && log && form && input)) return;
+
+  function addMsg(text, who) {
       const row = document.createElement("div");
       row.className = "senne-msg " + (who === "me" ? "me" : "bot");
       const bubble = document.createElement("div");
@@ -112,6 +117,11 @@
 
     btn.addEventListener("click", function () { toggle(true); });
     closeBtn.addEventListener("click", function () { toggle(false); });
+
+
+    if (send && !send.hasAttribute("type")) {
+      send.setAttribute("type", "submit");
+    }
 
     form.addEventListener("submit", async function (event) {
       event.preventDefault();
@@ -160,7 +170,6 @@
           : "Falha de conexão com o atendimento. Tente novamente.";
       }
     });
-  }
 
   const consentKey = "mf_cookie_consent_v1";
   if (!localStorage.getItem(consentKey)) {

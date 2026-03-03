@@ -7,6 +7,7 @@
     <meta name="description" content="Defesa estratégica em conflitos bancários, cobranças indevidas e negativação." />
     <link rel="stylesheet" href="assets/css/main.css" />
     <link rel="stylesheet" href="assets/css/spacing.css" />
+  <link rel="stylesheet" href="assets/css/components.css" />
     <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
   </head>
   <body class="is-preload">
@@ -113,10 +114,10 @@
     </style>
 
     <button id="senne-btn" data-senne-btn aria-label="Abrir chat SENNE">SENNE</button>
-    <div id="senne-box" data-senne-box role="dialog" aria-label="Chat SENNE">
+    <div id="senne-box" data-senne-chat role="dialog" aria-label="Chat SENNE">
       <div id="senne-header"><div><b>SENNE</b> <span class="sub">• atendimento</span></div><button id="senne-close" data-senne-close aria-label="Fechar">×</button></div>
-      <div id="senne-log" data-senne-log></div>
-      <form id="senne-form" data-senne-form><input id="senne-input" data-senne-input placeholder="Digite sua mensagem..." autocomplete="off" /><button id="senne-send" type="submit">Enviar</button></form>
+      <div id="senne-log" data-senne-output></div>
+      <form id="senne-form" data-senne-form><input id="senne-input" data-senne-input placeholder="Digite sua mensagem..." autocomplete="off" /><button id="senne-send" data-senne-send type="submit">Enviar</button></form>
       <div id="senne-hint">Se preferir, você pode pedir o contato do WhatsApp aqui.</div>
     </div>
 
