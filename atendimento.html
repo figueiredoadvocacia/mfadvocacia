@@ -4,6 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Atendimento | MF Advocacia</title>
+  <link rel="stylesheet" href="assets/css/spacing.css" />
 </head>
 <body>
   <h1>Atendimento e Agendamento</h1>
@@ -24,9 +25,11 @@
     <textarea name="mensagem" placeholder="Explique seu caso em poucas linhas" required></textarea>
 
     <button type="submit">Enviar</button>
+    <p class="form-privacy-note">Ao enviar, você concorda com a <a href="privacidade.html">Política de Privacidade</a>.</p>
   </form>
 
   <div id="status" style="margin-top:12px;"></div>
+  <p class="discreet-links"><a href="privacidade.html">Privacidade</a> · <a href="termos.html">Termos</a></p>
 
   <script>
   const WEBHOOK_URL = "https://n8n.mfadvocacia.api.br/webhook/site-lead";
@@ -66,5 +69,6 @@
       }
     });
   </script>
+  <script src="assets/js/site.js"></script>
 </body>
 </html>
