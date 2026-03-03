@@ -48,6 +48,29 @@
   padding: var(--space-sm);
 }
 
+.card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 32px;
+}
+
+.card-content { flex: 1; }
+
+.card-cta { margin-top: auto; }
+
+.card h3 { margin: 0 0 16px 0; }
+
+.card p { margin: 0 0 24px 0; }
+
+.card-cta .btn,
+.card .btn,
+.card-cta .button,
+.card .button {
+  display: inline-block;
+  text-align: center;
+}
+
 .consent-banner {
   position: fixed;
   left: var(--space-sm);

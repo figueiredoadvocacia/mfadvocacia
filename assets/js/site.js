@@ -83,13 +83,14 @@
   }
 
   const btn = document.querySelector("[data-senne-btn]") || document.getElementById("senne-btn");
-  const box = document.querySelector("[data-senne-box]") || document.getElementById("senne-box");
+  const box = document.querySelector("[data-senne-chat], [data-senne-box]") || document.getElementById("senne-box");
   const closeBtn = document.querySelector("[data-senne-close]") || document.getElementById("senne-close");
-  const log = document.querySelector("[data-senne-log]") || document.getElementById("senne-log");
+  const log = document.querySelector("[data-senne-output], [data-senne-log]") || document.getElementById("senne-log");
   const form = document.querySelector("[data-senne-form]") || document.getElementById("senne-form");
   const input = document.querySelector("[data-senne-input]") || document.getElementById("senne-input");
+  const send = document.querySelector("[data-senne-send]") || document.getElementById("senne-send");
 
-  if (btn && box && closeBtn && log && form && input) {
+  if (btn && box && closeBtn && log && form && input && send) {
     function addMsg(text, who) {
       const row = document.createElement("div");
       row.className = "senne-msg " + (who === "me" ? "me" : "bot");
