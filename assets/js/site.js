@@ -1,11 +1,68 @@
 (function () {
   const LEAD_WEBHOOK_URL = "https://n8n.mfadvocacia.api.br/webhook/site-lead";
   const CHAT_WEBHOOK_URL = "https://n8n.mfadvocacia.api.br/webhook/senne-site";
+  const SENNE_ENTRADA_URL = "https://n8n.mfadvocacia.api.br/webhook/senne-entrada";
 
   window.setArea = function setArea(area) {
     const el = document.getElementById("area_interesse");
     if (el) el.value = area || "";
   };
+
+
+  const leadForm = document.getElementById("leadForm");
+  const leadStatus = document.getElementById("status");
+
+  if (leadForm) {
+    leadForm.addEventListener("submit", async function (event) {
+      event.preventDefault();
+
+      const nome = (leadForm.nome && leadForm.nome.value.trim()) || "";
+      const whatsapp = (leadForm.whatsapp && leadForm.whatsapp.value.trim()) || "";
+      const instagram = (leadForm.instagram && leadForm.instagram.value.trim()) || "";
+      const assunto = (leadForm.assunto && leadForm.assunto.value) || "";
+      const mensagem = (leadForm.mensagem && leadForm.mensagem.value.trim()) || "";
+
+      const usuarioNormalizado = (whatsapp || "")
+        .replace(/\D/g, "") || "anon";
+
+      const payload = {
+        canal: "site",
+        usuario_id: usuarioNormalizado,
+        nome: nome || "Cliente",
+        mensagem:
+          "Atendimento (Agendar análise)\n\n" +
+          "Nome: " + nome + "\n" +
+          "WhatsApp: " + whatsapp + "\n" +
+          "Instagram: " + (instagram || "-") + "\n" +
+          "Assunto: " + assunto + "\n\n" +
+          "Mensagem:\n" + mensagem,
+        tipo: "texto",
+        audio_url: "",
+        origem: window.location.href,
+        ts: new Date().toISOString()
+      };
+
+      if (leadStatus) leadStatus.innerText = "Enviando...";
+
+      try {
+        const response = await fetch(SENNE_ENTRADA_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+
+        if (!response.ok) throw new Error("HTTP " + response.status);
+
+        if (leadStatus) {
+          leadStatus.innerText = "Pedido enviado com sucesso. Em breve entraremos em contato.";
+        }
+      } catch (error) {
+        if (leadStatus) {
+          leadStatus.innerText = "Falha ao enviar. Tente novamente em alguns minutos.";
+        }
+      }
+    });
+  }
 
   const networkForm = document.getElementById("network-form");
   const networkFeedback = document.getElementById("network-feedback");
