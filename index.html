@@ -1,12 +1,7 @@
 <!DOCTYPE HTML>
-<!--
-  Forty by HTML5 UP
-  html5up.net | @ajlkn
-  Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
 <html>
   <head>
-    <title>MF Advocacia | Segurança jurídica</title>
+    <title>MF Advocacia | Estratégia e segurança jurídica</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <meta name="description" content="MF Advocacia: orientação jurídica estratégica em Direito Civil Digital, Família, Consumidor e gestão de patrimônio, com atendimento online e presencial em Manaus." />
@@ -15,15 +10,203 @@
     <meta property="og:image" content="images/logo-mf-guara.png" />
     <link rel="stylesheet" href="assets/css/main.css" />
     <link rel="stylesheet" href="assets/css/spacing.css" />
-  <link rel="stylesheet" href="assets/css/components.css" />
+    <link rel="stylesheet" href="assets/css/components.css" />
     <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
-    <style>html { scroll-behavior: smooth; }</style>
+    <style>
+      html { scroll-behavior: smooth; }
+
+      :root{
+        --senne-bg: #0f1115;
+        --senne-bg-2: #12151c;
+        --senne-card: #ffffff;
+        --senne-text: #111827;
+        --senne-border: rgba(17,24,39,.12);
+        --senne-shadow: 0 18px 45px rgba(0,0,0,.25);
+        --senne-accent: #2d6cdf;
+      }
+
+      #senne-btn {
+        position: fixed;
+        right: 18px;
+        bottom: 18px;
+        z-index: 9999;
+        border: 0;
+        border-radius: 999px;
+        padding: 12px 16px;
+        background: var(--senne-bg);
+        color: #fff;
+        cursor: pointer;
+        box-shadow: 0 10px 25px rgba(0,0,0,.18);
+        font: 700 14px/1.2 system-ui, -apple-system, Segoe UI, Roboto, Arial;
+        letter-spacing: .2px;
+      }
+
+      #senne-btn:hover {
+        filter: brightness(1.06);
+      }
+
+      #senne-box {
+        position: fixed;
+        right: 18px;
+        bottom: 70px;
+        z-index: 9999;
+        width: 360px;
+        max-width: calc(100vw - 36px);
+        border-radius: 18px;
+        background: #fff;
+        box-shadow: var(--senne-shadow);
+        overflow: hidden;
+        display: none;
+        border: 1px solid rgba(255,255,255,.06);
+        font: 14px system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      }
+
+      #senne-header {
+        padding: 12px 14px;
+        background: linear-gradient(180deg, var(--senne-bg), var(--senne-bg-2));
+        color: #fff;
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        border-bottom: 1px solid rgba(255,255,255,.08);
+      }
+
+      #senne-header b {
+        font-weight: 800;
+        letter-spacing: .2px;
+      }
+
+      #senne-header .sub {
+        opacity:.85;
+        font-weight: 500;
+      }
+
+      #senne-close {
+        width: 36px;
+        height: 36px;
+        border-radius: 12px;
+        background: rgba(255,255,255,.08);
+        border: 1px solid rgba(255,255,255,.12);
+        color:#fff;
+        cursor:pointer;
+        font-size: 18px;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+      }
+
+      #senne-close:hover {
+        background: rgba(255,255,255,.14);
+      }
+
+      #senne-log {
+        padding: 12px;
+        height: 330px;
+        overflow:auto;
+        background: #f6f7fb;
+      }
+
+      .senne-msg {
+        margin: 10px 0;
+        display:flex;
+        gap: 10px;
+      }
+
+      .senne-bubble {
+        padding: 10px 12px;
+        border-radius: 16px;
+        max-width: 84%;
+        white-space: pre-wrap;
+        word-break: break-word;
+        line-height: 1.35;
+      }
+
+      .me {
+        justify-content: flex-end;
+      }
+
+      .me .senne-bubble {
+        background: linear-gradient(180deg, #141826, #0f1115);
+        color:#fff;
+        border-bottom-right-radius: 8px;
+        box-shadow: 0 10px 22px rgba(0,0,0,.12);
+      }
+
+      .bot {
+        justify-content: flex-start;
+      }
+
+      .bot .senne-bubble {
+        background:#fff;
+        color: var(--senne-text);
+        border: 1px solid var(--senne-border);
+        border-bottom-left-radius: 8px;
+        box-shadow: 0 10px 22px rgba(0,0,0,.06);
+      }
+
+      #senne-form {
+        display:flex;
+        gap:10px;
+        padding: 10px;
+        background:#fff;
+        border-top:1px solid rgba(17,24,39,.10);
+      }
+
+      #senne-input {
+        flex:1;
+        padding: 11px 12px;
+        border-radius: 12px;
+        border: 1px solid rgba(17,24,39,.18);
+        outline: none;
+        background: #fff !important;
+        color: #111827 !important;
+        font-size: 14px;
+      }
+
+      #senne-input::placeholder {
+        color: rgba(17,24,39,.55) !important;
+      }
+
+      #senne-send {
+        padding: 11px 14px;
+        border-radius: 12px;
+        border: 0;
+        background: var(--senne-accent);
+        color:#fff;
+        cursor:pointer;
+        font-weight: 800;
+        letter-spacing: .2px;
+      }
+
+      #senne-send:hover {
+        filter: brightness(1.05);
+      }
+
+      #senne-hint {
+        padding: 0 12px 12px;
+        color: rgba(17,24,39,.65);
+        font-size: 12px;
+        background:#fff;
+      }
+
+      #network-feedback.ok {
+        color: #0f7a32;
+      }
+
+      #network-feedback.error {
+        color: #a11b1b;
+      }
+
+      @media (max-width: 420px) {
+        #senne-box { width: calc(100vw - 36px); }
+        #senne-log { height: 52vh; }
+      }
+    </style>
   </head>
 
   <body class="is-preload">
     <div id="wrapper">
 
-      <!-- Header -->
       <header id="header" class="alt">
         <a href="index.html" class="logo">
           <strong>MF Advocacia</strong>
@@ -39,7 +222,6 @@
         </p>
       </header>
 
-      <!-- Menu -->
       <nav id="menu">
         <ul class="links">
           <li><a href="#banner" class="scrolly">Início</a></li>
@@ -55,7 +237,6 @@
         </ul>
       </nav>
 
-      <!-- Banner -->
       <section id="banner" class="major">
         <div class="inner">
           <header class="major">
@@ -83,12 +264,9 @@
         </div>
       </section>
 
-      <!-- Main -->
       <div id="main">
 
-        <!-- Áreas -->
         <section id="areas" class="tiles">
-
           <article>
             <span class="image">
               <img src="images/mayana_oficial_site_otimizada.jpg" alt="MF Advocacia - Direito Civil Digital" />
@@ -148,10 +326,8 @@
               <p>Materiais claros para entender seus direitos e agir com segurança.</p>
             </header>
           </article>
-
         </section>
 
-        <!-- Sobre -->
         <section id="sobre">
           <div class="inner">
             <header class="major">
@@ -180,13 +356,10 @@
             </p>
           </div>
         </section>
-
       </div>
 
-      <!-- Contact -->
       <section id="contato">
         <div class="inner">
-
           <section>
             <form id="network-form" novalidate>
               <input type="hidden" id="area_interesse" name="area_interesse" value="" />
@@ -210,11 +383,10 @@
 
               <ul class="actions">
                 <li><input type="submit" value="Enviar mensagem" class="primary" /></li>
-                <li><input type="reset" value="Limpar" onclick="setArea('')" /></li>
+                <li><input type="reset" value="Limpar" /></li>
               </ul>
 
               <p class="form-privacy-note">Ao enviar, você concorda com a <a href="privacidade.html">Política de Privacidade</a>.</p>
-
               <p id="network-feedback" style="margin-top:0.5rem;display:none;"></p>
             </form>
           </section>
@@ -244,11 +416,9 @@
               </div>
             </section>
           </section>
-
         </div>
       </section>
 
-      <!-- Footer -->
       <footer id="footer">
         <div class="inner">
           <ul class="icons">
@@ -263,7 +433,6 @@
           </ul>
 
           <p class="discreet-links"><a href="privacidade.html">Privacidade</a> · <a href="termos.html">Termos</a></p>
-
           <p style="margin-top: 1rem;">WhatsApp: +55 92 99397-2750</p>
 
           <div class="footer-brand">
@@ -271,10 +440,26 @@
           </div>
         </div>
       </footer>
-
     </div>
 
-    <!-- Scripts -->
+    <button id="senne-btn" aria-label="Abrir chat SENNE">SENNE</button>
+
+    <div id="senne-box" role="dialog" aria-label="Chat SENNE">
+      <div id="senne-header">
+        <div><b>SENNE</b> <span class="sub">• atendimento</span></div>
+        <button id="senne-close" aria-label="Fechar">×</button>
+      </div>
+
+      <div id="senne-log"></div>
+
+      <form id="senne-form">
+        <input id="senne-input" placeholder="Digite sua mensagem..." autocomplete="off" />
+        <button id="senne-send" type="submit">Enviar</button>
+      </form>
+
+      <div id="senne-hint">Se preferir, você pode pedir o contato do WhatsApp aqui.</div>
+    </div>
+
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/js/jquery.scrolly.min.js"></script>
     <script src="assets/js/jquery.scrollex.min.js"></script>
@@ -283,162 +468,165 @@
     <script src="assets/js/util.js"></script>
     <script src="assets/js/main.js"></script>
 
-    <!-- SENNE Widget (site -> n8n webhook) -->
-    <style>
-      :root{
-        --senne-bg: #0f1115;
-        --senne-bg-2: #12151c;
-        --senne-card: #ffffff;
-        --senne-text: #111827;
-        --senne-border: rgba(17,24,39,.12);
-        --senne-shadow: 0 18px 45px rgba(0,0,0,.25);
-        --senne-accent: #2d6cdf;
-      }
+    <script>
+      (function () {
+        const WEBHOOK_URL = "https://n8n.mfadvocacia.api.br/webhook/senne-entrada";
+        const FIRST_MESSAGE = "Olá! Eu sou o SENNE, da MF Advocacia. Me conta com calma o que aconteceu e o que você precisa neste momento.";
 
-      #senne-btn {
-        position: fixed; right: 18px; bottom: 18px; z-index: 9999;
-        border: 0; border-radius: 999px; padding: 12px 16px;
-        background: var(--senne-bg);
-        color: #fff;
-        cursor: pointer;
-        box-shadow: 0 10px 25px rgba(0,0,0,.18);
-        font: 700 14px/1.2 system-ui, -apple-system, Segoe UI, Roboto, Arial;
-        letter-spacing: .2px;
-      }
-      #senne-btn:hover { filter: brightness(1.06); }
+        const senneBtn = document.getElementById("senne-btn");
+        const senneBox = document.getElementById("senne-box");
+        const senneClose = document.getElementById("senne-close");
+        const senneForm = document.getElementById("senne-form");
+        const senneInput = document.getElementById("senne-input");
+        const senneLog = document.getElementById("senne-log");
 
-      #senne-box {
-        position: fixed; right: 18px; bottom: 70px; z-index: 9999;
-        width: 360px; max-width: calc(100vw - 36px);
-        border-radius: 18px;
-        background: #fff;
-        box-shadow: var(--senne-shadow);
-        overflow: hidden;
-        display: none;
-        border: 1px solid rgba(255,255,255,.06);
-        font: 14px system-ui, -apple-system, Segoe UI, Roboto, Arial;
-      }
+        const contactForm = document.getElementById("network-form");
+        const feedback = document.getElementById("network-feedback");
 
-      #senne-header {
-        padding: 12px 14px;
-        background: linear-gradient(180deg, var(--senne-bg), var(--senne-bg-2));
-        color: #fff;
-        display:flex; align-items:center; justify-content:space-between;
-        border-bottom: 1px solid rgba(255,255,255,.08);
-      }
-      #senne-header b { font-weight: 800; letter-spacing: .2px; }
-      #senne-header .sub { opacity:.85; font-weight: 500; }
+        let sessionId = localStorage.getItem("senne_session_id");
+        if (!sessionId) {
+          sessionId = "site-" + Math.random().toString(36).slice(2) + "-" + Date.now();
+          localStorage.setItem("senne_session_id", sessionId);
+        }
 
-      #senne-close {
-        width: 36px; height: 36px;
-        border-radius: 12px;
-        background: rgba(255,255,255,.08);
-        border: 1px solid rgba(255,255,255,.12);
-        color:#fff; cursor:pointer; font-size: 18px;
-        display:flex; align-items:center; justify-content:center;
-      }
-      #senne-close:hover { background: rgba(255,255,255,.14); }
+        function appendMessage(text, type) {
+          const row = document.createElement("div");
+          row.className = "senne-msg " + type;
 
-      #senne-log {
-        padding: 12px;
-        height: 330px;
-        overflow:auto;
-        background: #f6f7fb;
-      }
+          const bubble = document.createElement("div");
+          bubble.className = "senne-bubble";
+          bubble.textContent = text;
 
-      .senne-msg { margin: 10px 0; display:flex; gap: 10px; }
-      .senne-bubble {
-        padding: 10px 12px;
-        border-radius: 16px;
-        max-width: 84%;
-        white-space: pre-wrap; word-break: break-word;
-        line-height: 1.35;
-      }
+          row.appendChild(bubble);
+          senneLog.appendChild(row);
+          senneLog.scrollTop = senneLog.scrollHeight;
 
-      .me { justify-content: flex-end; }
-      .me .senne-bubble {
-        background: linear-gradient(180deg, #141826, #0f1115);
-        color:#fff;
-        border-bottom-right-radius: 8px;
-        box-shadow: 0 10px 22px rgba(0,0,0,.12);
-      }
+          return row;
+        }
 
-      .bot { justify-content: flex-start; }
-      .bot .senne-bubble {
-        background:#fff;
-        color: var(--senne-text);
-        border: 1px solid var(--senne-border);
-        border-bottom-left-radius: 8px;
-        box-shadow: 0 10px 22px rgba(0,0,0,.06);
-      }
+        function ensureFirstMessage() {
+          if (!senneLog.dataset.started) {
+            appendMessage(FIRST_MESSAGE, "bot");
+            senneLog.dataset.started = "1";
+          }
+        }
 
-      #senne-form {
-        display:flex; gap:10px;
-        padding: 10px;
-        background:#fff;
-        border-top:1px solid rgba(17,24,39,.10);
-      }
+        async function sendToSenne(payload) {
+          const response = await fetch(WEBHOOK_URL, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify(payload)
+          });
 
-      #senne-input {
-        flex:1;
-        padding: 11px 12px;
-        border-radius: 12px;
-        border: 1px solid rgba(17,24,39,.18);
-        outline: none;
-        background: #fff !important;
-        color: #111827 !important;
-        font-size: 14px;
-      }
-      #senne-input::placeholder {
-        color: rgba(17,24,39,.55) !important;
-      }
+          let data = {};
+          try {
+            data = await response.json();
+          } catch (e) {
+            data = {};
+          }
 
-      #senne-send {
-        padding: 11px 14px;
-        border-radius: 12px;
-        border: 0;
-        background: var(--senne-accent);
-        color:#fff;
-        cursor:pointer;
-        font-weight: 800;
-        letter-spacing: .2px;
-      }
-      #senne-send:hover { filter: brightness(1.05); }
+          if (!response.ok) {
+            throw new Error(data?.message || ("HTTP " + response.status));
+          }
 
-      #senne-hint {
-        padding: 0 12px 12px;
-        color: rgba(17,24,39,.65);
-        font-size: 12px;
-        background:#fff;
-      }
+          return data;
+        }
 
-      @media (max-width: 420px) {
-        #senne-box { width: calc(100vw - 36px); }
-        #senne-log { height: 52vh; }
-      }
-    </style>
+        senneBtn.addEventListener("click", function () {
+          senneBox.style.display = "block";
+          ensureFirstMessage();
+          senneInput.focus();
+        });
 
-    <button id="senne-btn" data-senne-btn aria-label="Abrir chat SENNE">SENNE</button>
+        senneClose.addEventListener("click", function () {
+          senneBox.style.display = "none";
+        });
 
-    <div id="senne-box" data-senne-chat role="dialog" aria-label="Chat SENNE">
-      <div id="senne-header">
-        <div><b>SENNE</b> <span class="sub">• atendimento</span></div>
-        <button id="senne-close" data-senne-close aria-label="Fechar">×</button>
-      </div>
+        senneForm.addEventListener("submit", async function (e) {
+          e.preventDefault();
 
-      <div id="senne-log" data-senne-output></div>
+          const mensagem = senneInput.value.trim();
+          if (!mensagem) return;
 
-      <form id="senne-form" data-senne-form>
-        <input id="senne-input" data-senne-input placeholder="Digite sua mensagem..." autocomplete="off" />
-        <button id="senne-send" data-senne-send type="submit">Enviar</button>
-      </form>
+          ensureFirstMessage();
+          appendMessage(mensagem, "me");
+          senneInput.value = "";
 
-      <div id="senne-hint">Se preferir, você pode pedir o contato do WhatsApp aqui.</div>
-    </div>
+          const loading = appendMessage("Digitando...", "bot");
 
-    <script src="assets/js/site-config.js"></script>
-    <script src="assets/js/site.js"></script>
-    <!-- /SENNE Widget -->
+          try {
+            const data = await sendToSenne({
+              mensagem,
+              usuario_id: sessionId,
+              canal: "site",
+              origem: window.location.href
+            });
 
+            loading.remove();
+
+            const resposta =
+              data.reply ||
+              data.resposta ||
+              "Recebi sua mensagem. Vou organizar as informações e já te responder.";
+
+            appendMessage(resposta, "bot");
+          } catch (error) {
+            loading.remove();
+            appendMessage("O atendimento está momentaneamente instável. Tente novamente em instantes ou fale pelo WhatsApp.", "bot");
+            console.error("Erro SENNE:", error);
+          }
+        });
+
+        if (contactForm) {
+          contactForm.addEventListener("submit", async function (e) {
+            e.preventDefault();
+
+            const nome = document.getElementById("name")?.value?.trim() || "";
+            const email = document.getElementById("email")?.value?.trim() || "";
+            const mensagem = document.getElementById("message")?.value?.trim() || "";
+            const areaInteresse = document.getElementById("area_interesse")?.value?.trim() || "";
+
+            if (!nome || !email) {
+              feedback.style.display = "block";
+              feedback.className = "error";
+              feedback.textContent = "Por favor, preencha nome e e-mail.";
+              return;
+            }
+
+            feedback.style.display = "block";
+            feedback.className = "";
+            feedback.textContent = "Enviando sua mensagem...";
+
+            try {
+              const mensagemCompleta = [
+                "Novo contato pelo formulário do site.",
+                "Nome: " + nome,
+                "E-mail: " + email,
+                areaInteresse ? "Área de interesse: " + areaInteresse : "",
+                mensagem ? "Mensagem: " + mensagem : "Mensagem: Cliente pediu contato sem detalhar."
+              ].filter(Boolean).join("\n");
+
+              const data = await sendToSenne({
+                mensagem: mensagemCompleta,
+                nome,
+                usuario_id: "form-" + sessionId,
+                canal: "site",
+                origem: window.location.href
+              });
+
+              feedback.className = "ok";
+              feedback.textContent = data.reply || data.resposta || "Mensagem enviada com sucesso. Em breve entraremos em contato.";
+              contactForm.reset();
+            } catch (error) {
+              feedback.className = "error";
+              feedback.textContent = "Não foi possível enviar agora. Tente novamente em instantes ou fale pelo WhatsApp.";
+              console.error("Erro formulário:", error);
+            }
+          });
+        }
+      })();
+    </script>
   </body>
 </html>
