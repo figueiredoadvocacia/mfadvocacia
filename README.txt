@@ -6,7 +6,11 @@ Site institucional estático da MF Advocacia com captação de leads e widget do
 - HTML5/CSS3/JavaScript (sem framework)
 - Deploy estático em Nginx
 - Integração de captação via webhooks n8n
-- Contexto de IA no fluxo n8n com Ollama interno (`http://ollama:11434`)
+- Contexto de IA no fluxo n8n com Ollama no host Ubuntu (acesso recomendado via `http://host.docker.internal:11434`)
+
+
+## n8n em Docker + Ollama no host
+Para padronizar conectividade do node HTTP do n8n com o Ollama no host, veja `deploy/n8n-ollama-host-connectivity.md`.
 
 ## Estrutura principal
 - `index.html`: página inicial, CTA e formulário de contato principal
