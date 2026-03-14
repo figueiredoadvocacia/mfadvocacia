@@ -77,3 +77,13 @@ python3 -m http.server 8080
 Acesse `http://localhost:8080`.
 
 > Em localhost, o runtime usa automaticamente `http://localhost:5678` como base do n8n.
+
+## Workflow SENNE (n8n + Ollama)
+O script `scripts/reorganize_senne_workflow.py` aplica correções de estabilidade no fluxo SENNE:
+- troca `Ollama /api/generate` por `Ollama /api/chat`;
+- envia payload em formato chat (`messages`) com prompt de sistema enxuto;
+- limita geração com `temperature: 0.3` e `num_predict: 220`;
+- habilita fallback para resposta padrão quando houver falha no Ollama;
+- força `Respond to Webhook` a retornar JSON no formato `{"ok": true, "reply": "..."}`.
+
+No procedimento operacional (`scripts/senne_hotfix.sh`) há validação explícita para bloquear importação se ainda existir `/api/generate`.
