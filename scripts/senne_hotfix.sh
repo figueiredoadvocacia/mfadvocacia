@@ -49,7 +49,7 @@ fi
 
 echo "Workflow alvo: $SENNE_WF_JSON"
 
-log "4.1) Aplicar patch SENNE (LLM text + endpoint Ollama Vision)"
+log "4.1) Aplicar patch SENNE (Ollama /api/chat + fallback + resposta JSON)"
 python3 scripts/reorganize_senne_workflow.py "$SENNE_WF_JSON"
 
 python3 - "$SENNE_WF_JSON" <<'PY'
@@ -61,6 +61,19 @@ webhooks=[n for n in nodes if n.get('type','').endswith('.webhook') or n.get('ty
 if not any((n.get('parameters',{}) or {}).get('path')=='senne-entrada' for n in webhooks):
     raise SystemExit("ERRO: workflow SENNE não tem webhook com path 'senne-entrada'. Não vou importar.")
 print('OK: webhook path senne-entrada encontrado.')
+PY
+
+python3 - "$SENNE_WF_JSON" <<'PY'
+import json,sys
+p=sys.argv[1]
+wf=json.load(open(p,encoding='utf-8'))
+nodes=wf.get('nodes',[])
+serialized=json.dumps(nodes,ensure_ascii=False).lower()
+if '/api/generate' in serialized:
+    raise SystemExit("ERRO: ainda existe /api/generate no workflow.")
+if '/api/chat' not in serialized:
+    raise SystemExit("ERRO: /api/chat não encontrado no workflow após patch.")
+print('OK: endpoint Ollama confirmado em /api/chat.')
 PY
 
 python3 - "$SENNE_WF_JSON" <<'PY'
