@@ -49,6 +49,9 @@ fi
 
 echo "Workflow alvo: $SENNE_WF_JSON"
 
+log "4.1) Aplicar patch SENNE (LLM text + endpoint Ollama Vision)"
+python3 scripts/reorganize_senne_workflow.py "$SENNE_WF_JSON"
+
 python3 - "$SENNE_WF_JSON" <<'PY'
 import json,sys
 p=sys.argv[1]
