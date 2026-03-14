@@ -1,0 +1,31 @@
+server {
+    listen 80;
+    listen [::]:80;
+    server_name mfadvocacia.api.br www.mfadvocacia.api.br;
+
+    root /var/www/mfadvocacia;
+    index index.html;
+
+    # Basic hardening headers for static pages
+    add_header X-Content-Type-Options nosniff always;
+    add_header X-Frame-Options SAMEORIGIN always;
+    add_header Referrer-Policy strict-origin-when-cross-origin always;
+
+    # Multipage static site: do not rewrite every missing path to /index.html
+    # to avoid masking 404s and serving wrong content.
+    location / {
+        try_files $uri $uri/ =404;
+    }
+
+    # Explicit homepage mapping
+    location = / {
+        try_files /index.html =404;
+    }
+
+    # Static cache (adjust during frequent content changes)
+    location ~* \.(?:css|js|png|jpg|jpeg|gif|svg|webp|ico)$ {
+        expires 7d;
+        add_header Cache-Control "public, max-age=604800";
+        try_files $uri =404;
+    }
+}

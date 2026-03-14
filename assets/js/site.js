@@ -1,13 +1,43 @@
 (function () {
-  const LEAD_WEBHOOK_URL = "https://n8n.mfadvocacia.api.br/webhook/site-lead";
-  const CHAT_WEBHOOK_URL = "https://n8n.mfadvocacia.api.br/webhook/senne-site";
-  const SENNE_ENTRADA_URL = "https://n8n.mfadvocacia.api.br/webhook/senne-entrada";
+  const config = window.MF_SITE_CONFIG || {};
+  const integration = config.integration || {};
+
+  function buildWebhookUrl(path, fallback) {
+    if (!path) return fallback;
+    if (/^https?:\/\//i.test(path)) return path;
+
+    const base = (integration.n8nBaseUrl || "").replace(/\/$/, "");
+    if (!base) return fallback;
+
+    return base + (path.startsWith("/") ? path : "/" + path);
+  }
+
+  const LEAD_WEBHOOK_URL = buildWebhookUrl(
+    integration.leadWebhookPath,
+    "https://n8n.mfadvocacia.api.br/webhook/site-lead"
+  );
+  const CHAT_WEBHOOK_URL = buildWebhookUrl(
+    integration.chatWebhookPath,
+    "https://n8n.mfadvocacia.api.br/webhook/senne-site"
+  );
+  const SENNE_ENTRADA_URL = buildWebhookUrl(
+    integration.senneEntradaPath,
+    "https://n8n.mfadvocacia.api.br/webhook/senne-entrada"
+  );
+
+  document.documentElement.setAttribute("data-webhook-lead", LEAD_WEBHOOK_URL);
+  document.documentElement.setAttribute("data-webhook-chat", CHAT_WEBHOOK_URL);
+  document.documentElement.setAttribute("data-webhook-atendimento", SENNE_ENTRADA_URL);
+
+  function buildErrorMessage(defaultMessage, response) {
+    const status = response && response.status ? " (HTTP " + response.status + ")" : "";
+    return defaultMessage + status;
+  }
 
   window.setArea = function setArea(area) {
     const el = document.getElementById("area_interesse");
     if (el) el.value = area || "";
   };
-
 
   const leadForm = document.getElementById("leadForm");
   const leadStatus = document.getElementById("status");
@@ -22,24 +52,43 @@
       const assunto = (leadForm.assunto && leadForm.assunto.value) || "";
       const mensagem = (leadForm.mensagem && leadForm.mensagem.value.trim()) || "";
 
-      const usuarioNormalizado = (whatsapp || "")
-        .replace(/\D/g, "") || "anon";
+      if (!nome || !whatsapp || !assunto || !mensagem) {
+        if (leadStatus) {
+          leadStatus.innerText = "Preencha todos os campos obrigatórios antes de enviar.";
+        }
+        return;
+      }
+
+      const usuarioNormalizado = (whatsapp || "").replace(/\D/g, "") || "anon";
 
       const payload = {
         canal: "site",
         usuario_id: usuarioNormalizado,
         nome: nome || "Cliente",
+        whatsapp,
+        instagram: instagram || null,
+        assunto,
         mensagem:
           "Atendimento (Agendar análise)\n\n" +
-          "Nome: " + nome + "\n" +
-          "WhatsApp: " + whatsapp + "\n" +
-          "Instagram: " + (instagram || "-") + "\n" +
-          "Assunto: " + assunto + "\n\n" +
-          "Mensagem:\n" + mensagem,
+          "Nome: " +
+          nome +
+          "\n" +
+          "WhatsApp: " +
+          whatsapp +
+          "\n" +
+          "Instagram: " +
+          (instagram || "-") +
+          "\n" +
+          "Assunto: " +
+          assunto +
+          "\n\n" +
+          "Mensagem:\n" +
+          mensagem,
         tipo: "texto",
         audio_url: "",
         origem: window.location.href,
-        ts: new Date().toISOString()
+        pagina: window.location.pathname,
+        ts: new Date().toISOString(),
       };
 
       if (leadStatus) leadStatus.innerText = "Enviando...";
@@ -48,17 +97,22 @@
         const response = await fetch(SENNE_ENTRADA_URL, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload)
+          body: JSON.stringify(payload),
         });
 
-        if (!response.ok) throw new Error("HTTP " + response.status);
+        if (!response.ok) {
+          const sendError = new Error("HTTP " + response.status);
+          sendError.response = response;
+          throw sendError;
+        }
 
+        leadForm.reset();
         if (leadStatus) {
           leadStatus.innerText = "Pedido enviado com sucesso. Em breve entraremos em contato.";
         }
       } catch (error) {
         if (leadStatus) {
-          leadStatus.innerText = "Falha ao enviar. Tente novamente em alguns minutos.";
+          leadStatus.innerText = buildErrorMessage("Falha ao enviar. Tente novamente em alguns minutos.", error && error.response);
         }
       }
     });
@@ -90,6 +144,7 @@
       const nome = networkForm.nome.value.trim();
       const email = networkForm.email.value.trim();
       const mensagem = networkForm.mensagem.value.trim();
+      const areaInteresse = (networkForm.area_interesse && networkForm.area_interesse.value.trim()) || "";
 
       let hasError = false;
 
@@ -112,6 +167,7 @@
         nome,
         email,
         mensagem,
+        area_interesse: areaInteresse || null,
         origem: "site",
         pagina: window.location.pathname,
         dataHora: new Date().toISOString(),
@@ -127,14 +183,16 @@
         });
 
         if (!response.ok) {
-          throw new Error("Falha no envio");
+          const sendError = new Error("Falha no envio");
+          sendError.response = response;
+          throw sendError;
         }
 
         networkForm.reset();
         setArea("");
-        setFeedback("Mensagem enviada com sucesso", true);
+        setFeedback("Mensagem enviada com sucesso.", true);
       } catch (error) {
-        setFeedback("Não foi possível enviar agora. Verifique sua conexão e tente novamente.", false);
+        setFeedback(buildErrorMessage("Não foi possível enviar agora. Verifique sua conexão e tente novamente.", error && error.response), false);
       }
     });
   }
@@ -153,80 +211,79 @@
   if (!(btn && box && closeBtn && log && form && input)) return;
 
   function addMsg(text, who) {
-      const row = document.createElement("div");
-      row.className = "senne-msg " + (who === "me" ? "me" : "bot");
-      const bubble = document.createElement("div");
-      bubble.className = "senne-bubble";
-      bubble.textContent = text;
-      row.appendChild(bubble);
-      log.appendChild(row);
-      log.scrollTop = log.scrollHeight;
-      return bubble;
-    }
+    const row = document.createElement("div");
+    row.className = "senne-msg " + (who === "me" ? "me" : "bot");
+    const bubble = document.createElement("div");
+    bubble.className = "senne-bubble";
+    bubble.textContent = text;
+    row.appendChild(bubble);
+    log.appendChild(row);
+    log.scrollTop = log.scrollHeight;
+    return bubble;
+  }
 
-    function toggle(open) {
-      box.style.display = open ? "block" : "none";
-      if (open && log.childElementCount === 0) {
-        addMsg("Oi! Eu sou o SENNE. Me diga rapidamente o que você precisa 😊", "bot");
+  function toggle(open) {
+    box.style.display = open ? "block" : "none";
+    if (open && log.childElementCount === 0) {
+      addMsg("Oi! Eu sou o SENNE. Me diga rapidamente o que você precisa 😊", "bot");
+    }
+    if (open) setTimeout(function () { input.focus(); }, 50);
+  }
+
+  btn.addEventListener("click", function () { toggle(true); });
+  closeBtn.addEventListener("click", function () { toggle(false); });
+
+  if (send && !send.hasAttribute("type")) {
+    send.setAttribute("type", "submit");
+  }
+
+  form.addEventListener("submit", async function (event) {
+    event.preventDefault();
+    const text = input.value.trim();
+    if (!text) return;
+
+    addMsg(text, "me");
+    input.value = "";
+
+    const typingBubble = addMsg("digitando...", "bot");
+
+    const payload = {
+      mensagem: text,
+      origem: "site",
+      pagina: window.location.pathname,
+      dataHora: new Date().toISOString(),
+    };
+
+    const controller = new AbortController();
+    const timeout = setTimeout(function () {
+      controller.abort();
+    }, 12000);
+
+    try {
+      const response = await fetch(CHAT_WEBHOOK_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+        signal: controller.signal,
+      });
+
+      clearTimeout(timeout);
+
+      if (!response.ok) {
+        typingBubble.textContent = buildErrorMessage("Ops! O atendimento está indisponível no momento.", response);
+        return;
       }
-      if (open) setTimeout(function () { input.focus(); }, 50);
+
+      const data = await response.json().catch(function () { return {}; });
+      const reply = data.reply || data.resposta || data.output || data.message || "Recebi sua mensagem e vou te responder em instantes.";
+      typingBubble.textContent = reply;
+    } catch (error) {
+      clearTimeout(timeout);
+      typingBubble.textContent = error.name === "AbortError"
+        ? "A resposta demorou demais. Tente novamente em instantes."
+        : "Falha de conexão com o atendimento. Tente novamente.";
     }
-
-    btn.addEventListener("click", function () { toggle(true); });
-    closeBtn.addEventListener("click", function () { toggle(false); });
-
-
-    if (send && !send.hasAttribute("type")) {
-      send.setAttribute("type", "submit");
-    }
-
-    form.addEventListener("submit", async function (event) {
-      event.preventDefault();
-      const text = input.value.trim();
-      if (!text) return;
-
-      addMsg(text, "me");
-      input.value = "";
-
-      const typingBubble = addMsg("digitando...", "bot");
-
-      const payload = {
-        mensagem: text,
-        origem: "site",
-        pagina: window.location.pathname,
-        dataHora: new Date().toISOString(),
-      };
-
-      const controller = new AbortController();
-      const timeout = setTimeout(function () {
-        controller.abort();
-      }, 12000);
-
-      try {
-        const response = await fetch(CHAT_WEBHOOK_URL, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload),
-          signal: controller.signal,
-        });
-
-        clearTimeout(timeout);
-
-        if (!response.ok) {
-          typingBubble.textContent = "Ops! O atendimento está indisponível no momento.";
-          return;
-        }
-
-        const data = await response.json().catch(function () { return {}; });
-        const reply = data.reply || data.resposta || data.output || data.message || "Recebi sua mensagem e vou te responder em instantes.";
-        typingBubble.textContent = reply;
-      } catch (error) {
-        clearTimeout(timeout);
-        typingBubble.textContent = error.name === "AbortError"
-          ? "A resposta demorou demais. Tente novamente em instantes."
-          : "Falha de conexão com o atendimento. Tente novamente.";
-      }
-    });
+  });
 
   const consentKey = "mf_cookie_consent_v1";
   if (!localStorage.getItem(consentKey)) {
