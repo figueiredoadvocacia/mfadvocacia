@@ -24,12 +24,12 @@
     integration: {
       n8nBaseUrl: defaultsByEnvironment[environment].n8nBaseUrl,
       leadWebhookPath: "/webhook/site-lead",
-      chatWebhookPath: "/webhook/senne-site",
+      chatWebhookPath: "/webhook/senne-entrada",
       senneEntradaPath: "/webhook/senne-entrada",
     },
     ollama: {
       internalUrl: "http://ollama:11434",
-      textModel: "qwen2.5:7b",
+      textModel: "qwen2.5:3b",
       visionModel: "moondream:latest",
     },
     channels: {

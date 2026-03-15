@@ -1,10 +1,23 @@
-# n8n (Docker) acessando Ollama no host Ubuntu
+# n8n (Docker) + Ollama (container) estáveis para o SENNE
 
-Este guia fixa uma forma estável de acesso do n8n (container) ao Ollama rodando no host.
+Este guia fixa uma topologia estável para o SENNE com n8n, Ollama e Supabase em Docker.
 
 ## 1) Princípio recomendado
 
-Use `host.docker.internal` no node HTTP do n8n e configure no `docker-compose`:
+Quando o Ollama está no container `ollama`, use o hostname de serviço da rede Docker:
+
+```text
+http://ollama:11434
+```
+
+No n8n (nodes HTTP / AI), prefira:
+
+- Chat: `http://ollama:11434/api/chat`
+- Health básico: `http://ollama:11434/api/tags`
+
+> Isso elimina dependência de IPs de gateway variáveis (`172.17.0.1`, `172.20.0.1` etc.).
+
+## 2) Exemplo mínimo de docker-compose
 
 ```yaml
 services:
@@ -14,80 +27,67 @@ services:
     restart: unless-stopped
     ports:
       - "5678:5678"
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
     environment:
       - TZ=America/Sao_Paulo
+    depends_on:
+      - ollama
+      - supabase-db
+
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama
+    restart: unless-stopped
+    ports:
+      - "11434:11434"
+
+  supabase-db:
+    image: supabase/postgres:latest
+    container_name: supabase-db
+    restart: unless-stopped
 ```
 
-> Isso evita depender de gateway IP variável (`172.17.0.1`, `172.20.0.1`, etc.).
+Todos os serviços devem estar na mesma rede Docker (default do compose já resolve).
 
-## 2) URL final para o node HTTP no n8n
+## 3) Modelo padrão do atendimento
 
-Use:
+Defina `qwen2.5:3b` como modelo principal do SENNE.
 
-```text
-http://host.docker.internal:11434/api/chat
-```
-
-Para teste simples de conectividade:
-
-```text
-http://host.docker.internal:11434/api/tags
-```
-
-## 3) Bind do Ollama no host
-
-No host Ubuntu, o serviço precisa escutar fora de localhost:
-
-```ini
-[Service]
-Environment="OLLAMA_HOST=0.0.0.0:11434"
-```
-
-Valide:
+Teste rápido no container Ollama:
 
 ```bash
-ss -ltnp | rg 11434
-curl -fsS http://127.0.0.1:11434/api/tags
-curl -fsS http://<IP_DO_HOST>:11434/api/tags
+docker exec -it ollama ollama pull qwen2.5:3b
+docker exec -it ollama ollama list
 ```
 
-## 4) Comandos de diagnóstico Docker
+## 4) Diagnóstico de rede e HTTP
 
 ```bash
-# ver rede do container n8n
-docker inspect n8n --format '{{json .NetworkSettings.Networks}}' | jq
+# containers ativos
+ docker ps --format 'table {{.Names}}\t{{.Status}}\t{{.Ports}}'
 
-# descobrir gateway da rede principal do container
-NET=$(docker inspect -f '{{range $k,$v := .NetworkSettings.Networks}}{{printf "%s\n" $k}}{{end}}' n8n | head -n1)
-docker network inspect "$NET" -f '{{(index .IPAM.Config 0).Gateway}}'
+# n8n alcança ollama por nome do serviço
+ docker exec n8n sh -lc 'curl -fsS http://ollama:11434/api/tags >/dev/null && echo OK'
 
-# validar resolução do host.docker.internal dentro do n8n
-docker exec n8n getent hosts host.docker.internal
-
-# validar acesso ao Ollama via nome estável
-docker exec n8n curl -fsS http://host.docker.internal:11434/api/tags
+# endpoint público do webhook do SENNE
+ curl -fsS -X POST "https://n8n.mfadvocacia.api.br/webhook/senne-entrada" \
+  -H "Content-Type: application/json" \
+  -d '{"mensagem":"ping","usuario_id":"diag","canal":"site"}'
 ```
 
-## 5) Firewall e roteamento
+## 5) Frontend e payload de resposta
 
-Se houver UFW/iptables no host, liberar entrada TCP 11434 na interface bridge do Docker.
+Para evitar fallback no site:
 
-Exemplo com UFW:
+- mantenha chat e atendimento apontando para `/webhook/senne-entrada`;
+- no retorno do workflow, prefira chave textual (`reply` ou `resposta`);
+- se o n8n devolver array/objeto aninhado, o parser do frontend deve extrair o primeiro texto válido.
 
-```bash
-sudo ufw allow in on docker0 to any port 11434 proto tcp
-```
+## 6) Supabase
 
-Se o n8n estiver em rede custom (`br-xxxx`), troque `docker0` pela interface correspondente.
+A integração com Supabase permanece no workflow (nós de persistência não devem ser removidos durante simplificação).
 
-## 6) Fallback (apenas se necessário)
+Recomendação operacional:
 
-Se não puder usar `extra_hosts`, use o gateway real da rede do container:
-
-```text
-http://<GATEWAY_DA_REDE_DO_N8N>:11434/api/chat
-```
-
-Mas trate como fallback; o recomendado para estabilidade operacional é `host.docker.internal` + `host-gateway`.
+- simplificar apenas nós duplicados de roteamento/transformação;
+- manter nós de gravação/auditoria no Supabase;
+- validar que o webhook responde texto mesmo quando a persistência falhar (fallback controlado no n8n).

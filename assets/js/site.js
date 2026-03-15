@@ -34,6 +34,52 @@
     return defaultMessage + status;
   }
 
+  function extractSenneReply(data) {
+    if (typeof data === "string") return data.trim();
+
+    if (Array.isArray(data)) {
+      for (const item of data) {
+        const reply = extractSenneReply(item);
+        if (reply) return reply;
+      }
+      return "";
+    }
+
+    if (!data || typeof data !== "object") return "";
+
+    const candidateKeys = [
+      "reply",
+      "resposta",
+      "response",
+      "output",
+      "message",
+      "text",
+      "content",
+      "answer",
+    ];
+
+    for (const key of candidateKeys) {
+      const value = data[key];
+      if (typeof value === "string" && value.trim()) return value.trim();
+      if (Array.isArray(value) || (value && typeof value === "object")) {
+        const nestedReply = extractSenneReply(value);
+        if (nestedReply) return nestedReply;
+      }
+    }
+
+    if (data.json) {
+      const jsonReply = extractSenneReply(data.json);
+      if (jsonReply) return jsonReply;
+    }
+
+    if (Array.isArray(data.data)) {
+      const dataReply = extractSenneReply(data.data);
+      if (dataReply) return dataReply;
+    }
+
+    return "";
+  }
+
   window.setArea = function setArea(area) {
     const el = document.getElementById("area_interesse");
     if (el) el.value = area || "";
@@ -275,7 +321,7 @@
       }
 
       const data = await response.json().catch(function () { return {}; });
-      const reply = data.reply || data.resposta || data.output || data.message || "Recebi sua mensagem e vou te responder em instantes.";
+      const reply = extractSenneReply(data) || "Recebi sua mensagem e vou te responder em instantes.";
       typingBubble.textContent = reply;
     } catch (error) {
       clearTimeout(timeout);
