@@ -9,7 +9,7 @@ window.MF_SITE_CONFIG_OVERRIDES = {
   integration: {
     n8nBaseUrl: "https://n8n.mfadvocacia.api.br",
     leadWebhookPath: "/webhook/site-lead",
-    chatWebhookPath: "/webhook/senne-site",
+    chatWebhookPath: "/webhook/senne-entrada",
     senneEntradaPath: "/webhook/senne-entrada",
   },
 };
