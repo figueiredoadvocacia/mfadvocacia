@@ -2,6 +2,34 @@
 .card-content{flex:1;}
 .card-cta{margin-top:auto;}
 
+.floating-whatsapp {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 9999;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.75rem 1rem;
+  border-radius: 999px;
+  background: #25d366;
+  color: #fff;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.floating-whatsapp:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.24);
+  color: #fff;
+}
+
+.floating-whatsapp .icon {
+  font-size: 1.1rem;
+}
+
 /* ========================================
    MOBILE RESPONSIVE PATCH
    Breakpoint: 768px
@@ -124,21 +152,8 @@ img, video, iframe {
     resize: vertical;
   }
 
-  /* SENNE chat */
-  #senne-box {
-    width: calc(100vw - 24px) !important;
-    right: 12px !important;
-    bottom: 72px !important;
-    max-width: 420px !important;
-  }
-
-  #senne-btn {
-    right: 12px !important;
-    bottom: 12px !important;
-    padding: 14px 16px !important;
-  }
-
-  #senne-log {
-    height: 52vh !important;
+  .floating-whatsapp {
+    right: 12px;
+    bottom: 12px;
   }
 }
