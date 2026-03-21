@@ -7,7 +7,8 @@
     <meta name="description" content="MF Advocacia: orientação jurídica estratégica em Direito Civil Digital, Família, Consumidor e gestão de patrimônio, com atendimento online e presencial em Manaus." />
     <meta property="og:title" content="MF Advocacia | Segurança jurídica" />
     <meta property="og:description" content="Clareza, estratégia e proteção legal para pessoas, famílias e negócios." />
-    <meta property="og:image" content="images/banner_site_premium.webp?v=2" />
+    <meta property="og:image" content="images/banner_site_premium.jpg?v=3" />
+
     <link rel="stylesheet" href="assets/css/main.css" />
     <link rel="stylesheet" href="assets/css/spacing.css" />
     <link rel="stylesheet" href="assets/css/components.css" />
@@ -29,8 +30,8 @@
       #banner {
         position: relative;
         background-image:
-          linear-gradient(rgba(10, 14, 34, 0.72), rgba(10, 14, 34, 0.72)),
-          url("images/banner_fullhd_dark_optimized.jpg?v=2");
+          linear-gradient(rgba(10, 14, 34, 0.34), rgba(10, 14, 34, 0.44)),
+          url("images/banner_site_premium.jpg?v=3");
         background-size: cover;
         background-position: center center;
         background-repeat: no-repeat;
@@ -40,8 +41,12 @@
         content: "";
         position: absolute;
         inset: 0;
-        background:
-          linear-gradient(90deg, rgba(8, 12, 30, 0.20) 0%, rgba(8, 12, 30, 0.08) 35%, rgba(8, 12, 30, 0.18) 100%);
+        background: linear-gradient(
+          90deg,
+          rgba(8, 12, 30, 0.08) 0%,
+          rgba(8, 12, 30, 0.03) 40%,
+          rgba(8, 12, 30, 0.08) 100%
+        );
         pointer-events: none;
         z-index: 0;
       }
@@ -49,27 +54,32 @@
       #banner > .inner {
         position: relative;
         z-index: 1;
-        max-width: 1200px;
+        max-width: 1240px;
       }
 
       #banner h1 {
         font-weight: 600;
-        letter-spacing: 0.02em;
-        line-height: 1.1;
-        text-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
-        margin-bottom: 0.4em;
+        letter-spacing: 0.015em;
+        line-height: 1.08;
+        text-shadow: 0 4px 18px rgba(0, 0, 0, 0.22);
+        margin-bottom: 0.35em;
+      }
+
+      #banner .major {
+        margin-bottom: 2rem;
       }
 
       #banner .major::after {
-        box-shadow: 0 0 18px rgba(255, 255, 255, 0.08);
+        box-shadow: 0 0 14px rgba(255, 255, 255, 0.05);
       }
 
       #banner .content {
-        display: flex;
+        display: grid;
+        grid-template-columns: minmax(320px, 520px) auto 90px minmax(170px, 220px);
         align-items: center;
-        gap: 2.5rem;
-        flex-wrap: wrap;
-        margin-top: 2rem;
+        column-gap: 2.25rem;
+        row-gap: 1.5rem;
+        margin-top: 0;
       }
 
       #banner .content > * {
@@ -77,41 +87,43 @@
       }
 
       #banner .content .banner-copy {
-        flex: 1 1 420px;
-        max-width: 540px;
+        max-width: 520px;
       }
 
       #banner .content .banner-copy p {
-        font-size: 1rem;
-        line-height: 1.9;
-        letter-spacing: 0.18em;
-        text-transform: uppercase;
-        opacity: 0.96;
         margin: 0;
-        text-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
+        font-size: 0.98rem;
+        line-height: 1.85;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        opacity: 0.98;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.16);
       }
 
       #banner .content .banner-cta {
-        flex: 0 1 auto;
+        display: flex;
+        align-items: center;
+      }
+
+      #banner .content .banner-cta .actions {
+        margin: 0;
       }
 
       #banner .content .banner-cta .button {
-        min-width: 20rem;
+        min-width: 22rem;
         text-align: center;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.22);
+        box-shadow: 0 10px 28px rgba(0, 0, 0, 0.14);
       }
 
       #banner .content .banner-social {
         display: flex;
-        flex-direction: column;
-        gap: 0.75rem;
-        align-items: center;
+        justify-content: center;
       }
 
       #banner .content .banner-social .icons {
         display: flex;
         flex-direction: column;
-        gap: 0.75rem;
+        gap: 0.7rem;
         margin: 0;
       }
 
@@ -120,16 +132,17 @@
       }
 
       #banner .content .banner-location {
-        flex: 0 1 220px;
+        display: flex;
+        align-items: center;
       }
 
       #banner .content .banner-location p {
         margin: 0;
         font-style: italic;
-        letter-spacing: 0.16em;
+        letter-spacing: 0.13em;
         text-transform: uppercase;
-        line-height: 2;
-        opacity: 0.9;
+        line-height: 1.9;
+        opacity: 0.92;
       }
 
       #banner .icons a {
@@ -138,28 +151,47 @@
 
       #banner .icons a:hover {
         transform: translateY(-2px);
-        opacity: 0.9;
+        opacity: 0.92;
       }
 
       @media screen and (max-width: 1280px) {
         #banner > .inner {
           max-width: 100%;
         }
+
+        #banner .content {
+          grid-template-columns: minmax(300px, 1fr) auto 80px minmax(160px, 200px);
+          column-gap: 1.5rem;
+        }
+
+        #banner .content .banner-cta .button {
+          min-width: 18rem;
+        }
       }
 
       @media screen and (max-width: 980px) {
-        #banner .content {
-          gap: 1.75rem;
+        #banner .major {
+          margin-bottom: 1.75rem;
         }
 
-        #banner .content .banner-copy {
+        #banner .content {
+          grid-template-columns: 1fr;
+          align-items: start;
+          row-gap: 1.25rem;
+        }
+
+        #banner .content .banner-copy,
+        #banner .content .banner-cta,
+        #banner .content .banner-social,
+        #banner .content .banner-location {
+          width: 100%;
           max-width: 100%;
         }
 
         #banner .content .banner-copy p {
           font-size: 0.92rem;
-          line-height: 1.85;
-          letter-spacing: 0.14em;
+          line-height: 1.8;
+          letter-spacing: 0.12em;
         }
 
         #banner .content .banner-cta .button {
@@ -167,48 +199,7 @@
         }
 
         #banner .content .banner-social {
-          flex-direction: row;
-          align-items: center;
-        }
-
-        #banner .content .banner-social .icons {
-          flex-direction: row;
-        }
-
-        #banner .content .banner-location {
-          flex-basis: 100%;
-        }
-      }
-
-      @media screen and (max-width: 736px) {
-        #banner h1 {
-          font-size: 2.6rem;
-        }
-
-        #banner .content {
-          flex-direction: column;
-          align-items: flex-start;
-        }
-
-        #banner .content .banner-copy,
-        #banner .content .banner-cta,
-        #banner .content .banner-location {
-          width: 100%;
-        }
-
-        #banner .content .banner-copy p {
-          font-size: 0.88rem;
-          line-height: 1.8;
-          letter-spacing: 0.12em;
-        }
-
-        #banner .content .banner-cta .button {
-          min-width: 100%;
-        }
-
-        #banner .content .banner-social {
-          flex-direction: row;
-          gap: 1rem;
+          justify-content: flex-start;
         }
 
         #banner .content .banner-social .icons {
@@ -217,7 +208,23 @@
 
         #banner .content .banner-location p {
           line-height: 1.8;
-          letter-spacing: 0.12em;
+          letter-spacing: 0.11em;
+        }
+      }
+
+      @media screen and (max-width: 736px) {
+        #banner h1 {
+          font-size: 2.55rem;
+        }
+
+        #banner .content .banner-copy p {
+          font-size: 0.88rem;
+          line-height: 1.75;
+          letter-spacing: 0.1em;
+        }
+
+        #banner .content .banner-cta .button {
+          min-width: 100%;
         }
       }
     </style>
