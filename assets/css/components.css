@@ -1,3 +1,139 @@
 .card{display:flex;flex-direction:column;height:100%;}
 .card-content{flex:1;}
 .card-cta{margin-top:auto;}
+
+/* ========================================
+   MOBILE RESPONSIVE PATCH
+   Breakpoint: 768px
+======================================== */
+
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+@media (max-width: 768px) {
+
+  /* containers */
+  .container,
+  .inner,
+  #wrapper,
+  #main,
+  section {
+    max-width: 100%;
+  }
+
+  .inner,
+  .container {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+
+  /* tipografia */
+  h1 {
+    font-size: 1.6rem;
+    line-height: 1.2;
+  }
+
+  h2 {
+    font-size: 1.35rem;
+  }
+
+  h3 {
+    font-size: 1.15rem;
+  }
+
+  p, li {
+    font-size: 1rem;
+    line-height: 1.55;
+  }
+
+  /* grids viram coluna */
+  .grid-2,
+  .grid-3,
+  .content-grid,
+  .about-grid,
+  .tiles,
+  .row,
+  .columns {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+  }
+
+  /* cards */
+  .card,
+  .content-card {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 20px !important;
+  }
+
+  /* botões touch friendly */
+  .button,
+  .btn,
+  button,
+  input[type="submit"] {
+    font-size: 1rem !important;
+    padding: 14px 16px !important;
+    min-height: 48px;
+    border-radius: 12px;
+  }
+
+  /* actions empilhadas */
+  .actions,
+  .actions.stacked {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+    width: 100%;
+  }
+
+  .actions li {
+    width: 100%;
+  }
+
+  .actions .button {
+    width: 100%;
+    text-align: center;
+  }
+
+  /* forms */
+  form,
+  .form-group,
+  .fields {
+    width: 100%;
+  }
+
+  input,
+  select,
+  textarea {
+    width: 100% !important;
+    box-sizing: border-box;
+    font-size: 1rem;
+    padding: 14px;
+  }
+
+  textarea {
+    min-height: 140px;
+    resize: vertical;
+  }
+
+  /* SENNE chat */
+  #senne-box {
+    width: calc(100vw - 24px) !important;
+    right: 12px !important;
+    bottom: 72px !important;
+    max-width: 420px !important;
+  }
+
+  #senne-btn {
+    right: 12px !important;
+    bottom: 12px !important;
+    padding: 14px 16px !important;
+  }
+
+  #senne-log {
+    height: 52vh !important;
+  }
+}
