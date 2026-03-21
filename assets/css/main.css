@@ -3514,6 +3514,35 @@ input, select, textarea {
 			background-color: #87c5a4;
 		}
 
+		#banner::before,
+		#banner::after {
+			display: none !important;
+			background: none !important;
+			opacity: 0 !important;
+		}
+
+		#banner .major::before,
+		#banner .major:before,
+		#banner *::before,
+		#banner *::after {
+			background: none !important;
+		}
+
+		#banner {
+			background: none !important;
+		}
+
+		#banner .image img {
+			opacity: 1 !important;
+			filter: none !important;
+		}
+
+		#banner > .inner {
+			background-color: transparent !important;
+			backdrop-filter: none !important;
+			opacity: 1 !important;
+		}
+
 		body.is-preload #banner:after {
 			opacity: 1.0;
 		}
