@@ -7,19 +7,79 @@
     <meta name="description" content="MF Advocacia: orientação jurídica estratégica em Direito Civil Digital, Família, Consumidor e gestão de patrimônio, com atendimento online e presencial em Manaus." />
     <meta property="og:title" content="MF Advocacia | Segurança jurídica" />
     <meta property="og:description" content="Clareza, estratégia e proteção legal para pessoas, famílias e negócios." />
-    <meta property="og:image" content="images/banner_fullhd.png" />
+    <meta property="og:image" content="images/banner_fullhd_dark.png" />
     <link rel="stylesheet" href="assets/css/main.css" />
     <link rel="stylesheet" href="assets/css/spacing.css" />
     <link rel="stylesheet" href="assets/css/components.css" />
     <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
     <style>
       html { scroll-behavior: smooth; }
+
       #network-feedback.ok {
         color: #0f7a32;
       }
 
       #network-feedback.error {
         color: #a11b1b;
+      }
+
+      #banner {
+        background:
+          linear-gradient(rgba(0, 0, 0, 0.58), rgba(0, 0, 0, 0.58)),
+          url("images/banner_fullhd_dark.png");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        position: relative;
+      }
+
+      #banner::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(90deg, rgba(0, 0, 0, 0.28) 0%, rgba(0, 0, 0, 0.08) 45%, rgba(0, 0, 0, 0.18) 100%);
+        pointer-events: none;
+      }
+
+      #banner > .inner {
+        position: relative;
+        z-index: 1;
+        max-width: 900px;
+      }
+
+      #banner h1 {
+        font-weight: 600;
+        letter-spacing: 1px;
+        text-shadow: 0 4px 18px rgba(0, 0, 0, 0.35);
+      }
+
+      #banner .content p {
+        font-size: 1.1rem;
+        opacity: 0.96;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.28);
+      }
+
+      #banner .actions .button {
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.22);
+      }
+
+      #banner .icons a {
+        transition: transform 0.2s ease, opacity 0.2s ease;
+      }
+
+      #banner .icons a:hover {
+        transform: translateY(-2px);
+        opacity: 0.9;
+      }
+
+      @media screen and (max-width: 980px) {
+        #banner .content p {
+          font-size: 1rem;
+        }
+
+        #banner > .inner {
+          max-width: 100%;
+        }
       }
     </style>
   </head>
@@ -261,6 +321,7 @@
         </div>
       </footer>
     </div>
+
     <a href="https://wa.me/5592993972750" class="floating-whatsapp" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
       <span class="icon brands fa-whatsapp" aria-hidden="true"></span>
       <span>WhatsApp</span>
