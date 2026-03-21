@@ -7,13 +7,16 @@
     <meta name="description" content="MF Advocacia: orientação jurídica estratégica em Direito Civil Digital, Família, Consumidor e gestão de patrimônio, com atendimento online e presencial em Manaus." />
     <meta property="og:title" content="MF Advocacia | Segurança jurídica" />
     <meta property="og:description" content="Clareza, estratégia e proteção legal para pessoas, famílias e negócios." />
-    <meta property="og:image" content="images/banner_fullhd.png" />
+    <meta property="og:image" content="images/banner_fullhd_dark_optimized.jpg?v=2" />
     <link rel="stylesheet" href="assets/css/main.css" />
     <link rel="stylesheet" href="assets/css/spacing.css" />
     <link rel="stylesheet" href="assets/css/components.css" />
     <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+
     <style>
-      html { scroll-behavior: smooth; }
+      html {
+        scroll-behavior: smooth;
+      }
 
       #network-feedback.ok {
         color: #0f7a32;
@@ -24,43 +27,109 @@
       }
 
       #banner {
-        background:
-          linear-gradient(rgba(0, 0, 0, 0.58), rgba(0, 0, 0, 0.58)),
-          url("images/banner_fullhd_dark.png");
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
         position: relative;
+        background-image:
+          linear-gradient(rgba(10, 14, 34, 0.72), rgba(10, 14, 34, 0.72)),
+          url("images/banner_fullhd_dark_optimized.jpg?v=2");
+        background-size: cover;
+        background-position: center center;
+        background-repeat: no-repeat;
       }
 
       #banner::before {
         content: "";
         position: absolute;
         inset: 0;
-        background: linear-gradient(90deg, rgba(0, 0, 0, 0.28) 0%, rgba(0, 0, 0, 0.08) 45%, rgba(0, 0, 0, 0.18) 100%);
+        background:
+          linear-gradient(90deg, rgba(8, 12, 30, 0.20) 0%, rgba(8, 12, 30, 0.08) 35%, rgba(8, 12, 30, 0.18) 100%);
         pointer-events: none;
+        z-index: 0;
       }
 
       #banner > .inner {
         position: relative;
         z-index: 1;
-        max-width: 900px;
+        max-width: 1200px;
       }
 
       #banner h1 {
         font-weight: 600;
-        letter-spacing: 1px;
-        text-shadow: 0 4px 18px rgba(0, 0, 0, 0.35);
+        letter-spacing: 0.02em;
+        line-height: 1.1;
+        text-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+        margin-bottom: 0.4em;
       }
 
-      #banner .content p {
-        font-size: 1.1rem;
+      #banner .major::after {
+        box-shadow: 0 0 18px rgba(255, 255, 255, 0.08);
+      }
+
+      #banner .content {
+        display: flex;
+        align-items: center;
+        gap: 2.5rem;
+        flex-wrap: wrap;
+        margin-top: 2rem;
+      }
+
+      #banner .content > * {
+        margin: 0;
+      }
+
+      #banner .content .banner-copy {
+        flex: 1 1 420px;
+        max-width: 540px;
+      }
+
+      #banner .content .banner-copy p {
+        font-size: 1rem;
+        line-height: 1.9;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
         opacity: 0.96;
-        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.28);
+        margin: 0;
+        text-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
       }
 
-      #banner .actions .button {
+      #banner .content .banner-cta {
+        flex: 0 1 auto;
+      }
+
+      #banner .content .banner-cta .button {
+        min-width: 20rem;
+        text-align: center;
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.22);
+      }
+
+      #banner .content .banner-social {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+        align-items: center;
+      }
+
+      #banner .content .banner-social .icons {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+        margin: 0;
+      }
+
+      #banner .content .banner-social .icons li {
+        padding-left: 0;
+      }
+
+      #banner .content .banner-location {
+        flex: 0 1 220px;
+      }
+
+      #banner .content .banner-location p {
+        margin: 0;
+        font-style: italic;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        line-height: 2;
+        opacity: 0.9;
       }
 
       #banner .icons a {
@@ -72,13 +141,83 @@
         opacity: 0.9;
       }
 
-      @media screen and (max-width: 980px) {
-        #banner .content p {
-          font-size: 1rem;
-        }
-
+      @media screen and (max-width: 1280px) {
         #banner > .inner {
           max-width: 100%;
+        }
+      }
+
+      @media screen and (max-width: 980px) {
+        #banner .content {
+          gap: 1.75rem;
+        }
+
+        #banner .content .banner-copy {
+          max-width: 100%;
+        }
+
+        #banner .content .banner-copy p {
+          font-size: 0.92rem;
+          line-height: 1.85;
+          letter-spacing: 0.14em;
+        }
+
+        #banner .content .banner-cta .button {
+          min-width: 16rem;
+        }
+
+        #banner .content .banner-social {
+          flex-direction: row;
+          align-items: center;
+        }
+
+        #banner .content .banner-social .icons {
+          flex-direction: row;
+        }
+
+        #banner .content .banner-location {
+          flex-basis: 100%;
+        }
+      }
+
+      @media screen and (max-width: 736px) {
+        #banner h1 {
+          font-size: 2.6rem;
+        }
+
+        #banner .content {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        #banner .content .banner-copy,
+        #banner .content .banner-cta,
+        #banner .content .banner-location {
+          width: 100%;
+        }
+
+        #banner .content .banner-copy p {
+          font-size: 0.88rem;
+          line-height: 1.8;
+          letter-spacing: 0.12em;
+        }
+
+        #banner .content .banner-cta .button {
+          min-width: 100%;
+        }
+
+        #banner .content .banner-social {
+          flex-direction: row;
+          gap: 1rem;
+        }
+
+        #banner .content .banner-social .icons {
+          flex-direction: row;
+        }
+
+        #banner .content .banner-location p {
+          line-height: 1.8;
+          letter-spacing: 0.12em;
         }
       }
     </style>
@@ -124,22 +263,30 @@
           </header>
 
           <div class="content">
-            <p>
-              Confiança se constrói com clareza e proteção legal.<br />
-              Gestão para patrimônios, pessoas e negócios. Proteção jurídica para decisões importantes.
-            </p>
+            <div class="banner-copy">
+              <p>
+                Confiança se constrói com clareza e proteção legal.<br />
+                Gestão para patrimônios, pessoas e negócios. Proteção jurídica para decisões importantes.
+              </p>
+            </div>
 
-            <ul class="actions">
-              <li><a href="atendimento.html" class="button next">Agende uma análise estratégica</a></li>
-            </ul>
+            <div class="banner-cta">
+              <ul class="actions">
+                <li><a href="atendimento.html" class="button next">Agende uma análise estratégica</a></li>
+              </ul>
+            </div>
 
-            <ul class="icons">
-              <li><a href="https://wa.me/5592993972750" class="icon brands alt fa-whatsapp" target="_blank" rel="noopener"><span class="label">WhatsApp</span></a></li>
-              <li><a href="https://www.instagram.com/mayanafigueiredoadv/" class="icon brands alt fa-instagram" target="_blank" rel="noopener"><span class="label">@mayanafigueiredoadv</span></a></li>
-              <li><a href="https://www.linkedin.com/in/mayana-figueireiredo-453ba22a2/" class="icon brands alt fa-linkedin-in" target="_blank" rel="noopener"><span class="label">LinkedIn</span></a></li>
-            </ul>
+            <div class="banner-social">
+              <ul class="icons">
+                <li><a href="https://wa.me/5592993972750" class="icon brands alt fa-whatsapp" target="_blank" rel="noopener"><span class="label">WhatsApp</span></a></li>
+                <li><a href="https://www.instagram.com/mayanafigueiredoadv/" class="icon brands alt fa-instagram" target="_blank" rel="noopener"><span class="label">@mayanafigueiredoadv</span></a></li>
+                <li><a href="https://www.linkedin.com/in/mayana-figueiredo-453ba22a2/" class="icon brands alt fa-linkedin-in" target="_blank" rel="noopener"><span class="label">LinkedIn</span></a></li>
+              </ul>
+            </div>
 
-            <p style="margin-top: 0.5rem; opacity: 0.85;"><em>Atendimento online e presencial • Manaus/AM</em></p>
+            <div class="banner-location">
+              <p>Atendimento online e presencial • Manaus/AM</p>
+            </div>
           </div>
         </div>
       </section>
@@ -334,7 +481,6 @@
     <script src="assets/js/breakpoints.min.js"></script>
     <script src="assets/js/util.js"></script>
     <script src="assets/js/main.js"></script>
-
     <script src="assets/js/site-config.js"></script>
     <script src="assets/js/site.js"></script>
   </body>
