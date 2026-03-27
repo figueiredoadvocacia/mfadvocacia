@@ -18,7 +18,7 @@
   );
   const CHAT_WEBHOOK_URL = buildWebhookUrl(
     integration.chatWebhookPath,
-    "https://n8n.mfadvocacia.api.br/webhook/senne-site"
+    "https://n8n.mfadvocacia.api.br/webhook/senne-entrada"
   );
   const SENNE_ENTRADA_URL = buildWebhookUrl(
     integration.senneEntradaPath,
@@ -111,9 +111,6 @@
         canal: "site",
         usuario_id: usuarioNormalizado,
         nome: nome || "Cliente",
-        whatsapp,
-        instagram: instagram || null,
-        assunto,
         mensagem:
           "Atendimento (Agendar análise)\n\n" +
           "Nome: " +
@@ -130,10 +127,7 @@
           "\n\n" +
           "Mensagem:\n" +
           mensagem,
-        tipo: "texto",
-        audio_url: "",
         origem: window.location.href,
-        pagina: window.location.pathname,
         ts: new Date().toISOString(),
       };
 

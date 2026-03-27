@@ -19,6 +19,7 @@ OLLAMA_CHAT_ENDPOINT = f"{OLLAMA_BASE}/api/chat"
 OLLAMA_TAGS_ENDPOINT = f"{OLLAMA_BASE}/api/tags"
 LLM_TEXT_EXPR = "={{ $json.mensagem }}"
 TEXT_MODEL = "qwen2.5:3b"
+SUPABASE_CONTATOS_URL = "https://oizwhtofmmfxfrmqzolu.supabase.co/rest/v1/contatos"
 
 
 def find_nodes(nodes: list[dict[str, Any]], *, name_contains: str = "", type_contains: str = "") -> list[dict[str, Any]]:
@@ -98,6 +99,36 @@ def patch_ollama_http_nodes(nodes: list[dict[str, Any]]) -> list[str]:
   return patched
 
 
+def patch_supabase_lookup_node(nodes: list[dict[str, Any]]) -> list[str]:
+  patched: list[str] = []
+
+  for node in nodes:
+    name = str(node.get("name") or "")
+    if name.strip().lower() != "supabase (buscar contato)":
+      continue
+
+    params = node.setdefault("parameters", {})
+    params["url"] = SUPABASE_CONTATOS_URL
+    params["sendQuery"] = True
+    params["queryParametersUi"] = {
+      "parameter": [
+        {"name": "select", "value": "id,canal_origem,usuario_id,nome,status"},
+        {"name": "canal_origem", "value": "={{ 'eq.' + $json.canal }}"},
+        {"name": "usuario_id", "value": "={{ 'eq.' + $json.usuario_id }}"},
+        {"name": "limit", "value": "1"},
+      ]
+    }
+
+    patched.append(
+      f"{name} -> url={SUPABASE_CONTATOS_URL}; query params separados (select/canal_origem/usuario_id/limit)"
+    )
+
+  if not patched:
+    raise SystemExit("ERRO: node 'Supabase (buscar contato)' não encontrado para ajuste.")
+
+  return patched
+
+
 def main() -> int:
   if len(sys.argv) != 2:
     print("Uso: python3 scripts/reorganize_senne_workflow.py <workflow.json>", file=sys.stderr)
@@ -111,6 +142,7 @@ def main() -> int:
 
   llm_changes = patch_llm_nodes(nodes)
   ollama_changes = patch_ollama_http_nodes(nodes)
+  supabase_changes = patch_supabase_lookup_node(nodes)
 
   path.write_text(json.dumps(workflow, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
@@ -120,6 +152,9 @@ def main() -> int:
     print(f"  - {line}")
   print("- Ollama")
   for line in ollama_changes:
+    print(f"  - {line}")
+  print("- Supabase (buscar contato)")
+  for line in supabase_changes:
     print(f"  - {line}")
 
   return 0
