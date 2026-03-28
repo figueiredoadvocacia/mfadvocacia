@@ -104,6 +104,7 @@
         (leadForm.querySelector("#assunto") && leadForm.querySelector("#assunto").value.trim()) ||
         "";
       const mensagem = (leadForm.querySelector("#mensagem") && leadForm.querySelector("#mensagem").value.trim()) || "";
+      const usuario_id = telefone.replace(/\D/g, "") || instagram.trim() || "site-" + Date.now();
       const submitButton = leadForm.querySelector('button[type="submit"]');
 
       if (!nome || !telefone || !areaInteresse || !mensagem) {
@@ -117,6 +118,7 @@
         nome: nome,
         telefone: telefone,
         instagram: instagram,
+        usuario_id: usuario_id,
         area_interesse: areaInteresse,
         mensagem: mensagem,
         origem: "site",
