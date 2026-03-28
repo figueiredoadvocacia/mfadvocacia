@@ -94,9 +94,15 @@
       event.preventDefault();
 
       const nome = (leadForm.querySelector("#nome") && leadForm.querySelector("#nome").value.trim()) || "";
-      const telefone = (leadForm.querySelector("#telefone") && leadForm.querySelector("#telefone").value.trim()) || "";
+      const telefone =
+        (leadForm.querySelector("#telefone") && leadForm.querySelector("#telefone").value.trim()) ||
+        (leadForm.querySelector("#whatsapp") && leadForm.querySelector("#whatsapp").value.trim()) ||
+        "";
       const instagram = (leadForm.querySelector("#instagram") && leadForm.querySelector("#instagram").value.trim()) || "";
-      const areaInteresse = (leadForm.querySelector("#area") && leadForm.querySelector("#area").value.trim()) || "";
+      const areaInteresse =
+        (leadForm.querySelector("#area") && leadForm.querySelector("#area").value.trim()) ||
+        (leadForm.querySelector("#assunto") && leadForm.querySelector("#assunto").value.trim()) ||
+        "";
       const mensagem = (leadForm.querySelector("#mensagem") && leadForm.querySelector("#mensagem").value.trim()) || "";
       const submitButton = leadForm.querySelector('button[type="submit"]');
 
