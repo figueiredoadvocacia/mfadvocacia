@@ -24,6 +24,7 @@
     integration.senneEntradaPath,
     "https://n8n.mfadvocacia.api.br/webhook/senne-entrada"
   );
+  const AGENDAMENTO_WEBHOOK_URL = "https://n8n.mfadvocacia.api.br/webhook/site-agendamento";
 
   document.documentElement.setAttribute("data-webhook-lead", LEAD_WEBHOOK_URL);
   document.documentElement.setAttribute("data-webhook-chat", CHAT_WEBHOOK_URL);
@@ -92,49 +93,35 @@
     leadForm.addEventListener("submit", async function (event) {
       event.preventDefault();
 
-      const nome = (leadForm.nome && leadForm.nome.value.trim()) || "";
-      const whatsapp = (leadForm.whatsapp && leadForm.whatsapp.value.trim()) || "";
-      const instagram = (leadForm.instagram && leadForm.instagram.value.trim()) || "";
-      const assunto = (leadForm.assunto && leadForm.assunto.value) || "";
-      const mensagem = (leadForm.mensagem && leadForm.mensagem.value.trim()) || "";
+      const nome = (leadForm.querySelector("#nome") && leadForm.querySelector("#nome").value.trim()) || "";
+      const telefone = (leadForm.querySelector("#telefone") && leadForm.querySelector("#telefone").value.trim()) || "";
+      const instagram = (leadForm.querySelector("#instagram") && leadForm.querySelector("#instagram").value.trim()) || "";
+      const areaInteresse = (leadForm.querySelector("#area") && leadForm.querySelector("#area").value.trim()) || "";
+      const mensagem = (leadForm.querySelector("#mensagem") && leadForm.querySelector("#mensagem").value.trim()) || "";
+      const submitButton = leadForm.querySelector('button[type="submit"]');
 
-      if (!nome || !whatsapp || !assunto || !mensagem) {
+      if (!nome || !telefone || !areaInteresse || !mensagem) {
         if (leadStatus) {
           leadStatus.innerText = "Preencha todos os campos obrigatórios antes de enviar.";
         }
         return;
       }
 
-      const usuarioNormalizado = (whatsapp || "").replace(/\D/g, "") || "anon";
-
       const payload = {
-        canal: "site",
-        usuario_id: usuarioNormalizado,
-        nome: nome || "Cliente",
-        mensagem:
-          "Atendimento (Agendar análise)\n\n" +
-          "Nome: " +
-          nome +
-          "\n" +
-          "WhatsApp: " +
-          whatsapp +
-          "\n" +
-          "Instagram: " +
-          (instagram || "-") +
-          "\n" +
-          "Assunto: " +
-          assunto +
-          "\n\n" +
-          "Mensagem:\n" +
-          mensagem,
-        origem: window.location.href,
-        ts: new Date().toISOString(),
+        nome: nome,
+        telefone: telefone,
+        instagram: instagram,
+        area_interesse: areaInteresse,
+        mensagem: mensagem,
+        origem: "site",
+        page_url: window.location.href,
       };
 
-      if (leadStatus) leadStatus.innerText = "Enviando...";
+      if (leadStatus) leadStatus.innerText = "Enviando seu agendamento...";
+      if (submitButton) submitButton.disabled = true;
 
       try {
-        const response = await fetch(SENNE_ENTRADA_URL, {
+        const response = await fetch(AGENDAMENTO_WEBHOOK_URL, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload),
@@ -148,12 +135,14 @@
 
         leadForm.reset();
         if (leadStatus) {
-          leadStatus.innerText = "Pedido enviado com sucesso. Em breve entraremos em contato.";
+          leadStatus.innerText = "Agendamento enviado com sucesso. Em breve entraremos em contato.";
         }
       } catch (error) {
         if (leadStatus) {
           leadStatus.innerText = buildErrorMessage("Falha ao enviar. Tente novamente em alguns minutos.", error && error.response);
         }
+      } finally {
+        if (submitButton) submitButton.disabled = false;
       }
     });
   }
