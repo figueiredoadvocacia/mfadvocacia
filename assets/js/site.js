@@ -107,7 +107,7 @@
       const usuario_id = telefone.replace(/\D/g, "") || instagram.trim() || "site-" + Date.now();
       const submitButton = leadForm.querySelector('button[type="submit"]');
 
-      if (!nome || !telefone || !areaInteresse || !mensagem) {
+      if (!nome || (!telefone && !instagram) || !areaInteresse || !mensagem) {
         if (leadStatus) {
           leadStatus.innerText = "Preencha todos os campos obrigatórios antes de enviar.";
         }
